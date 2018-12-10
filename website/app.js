@@ -65,17 +65,8 @@
 
 // }).listen(port);
 
-var static = require('node-static');
-const port = process.env.PORT || 3000
+var express = require('express'); 
+var app = express();
+app.use(express.static(__dirname));
 
-//
-var file = new static.Server('./website');
-
-require('http').createServer(function (request, response) {
-    request.addListener('end', function () {
-        //
-        // Serve files!
-        //
-        file.serve(request, response);
-    }).resume();
-}).listen(port);
+app.listen(process.env.PORT || 3000);
