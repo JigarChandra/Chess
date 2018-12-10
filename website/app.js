@@ -69,7 +69,8 @@ http.createServer(function (request, response) {
             // Set to true if you need the website to include cookies in the requests sent
             // to the API (e.g. in case you use sessions)
             response.setHeader('Access-Control-Allow-Credentials', true);
-            response.end(content, 'utf-8');
+            // response.end(content, 'utf-8');
+            res.end('<h1>Hello World</h1>');
         }
     });
 
