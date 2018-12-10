@@ -66,9 +66,16 @@
 // }).listen(port);
 
 var express = require('express'); 
+const path = require('path');
 var app = express();
 
-console.log('dir: ' + __dirname);
-app.use(express.static(__dirname + '/public'));
+console.log(path.resolve(__dirname, 'public'));
+app.use('/' ,express.static(path.resolve(__dirname, 'public')));
+
+app.get('/hello', function(req,res,next){
+    return res.send('hello world')
+})
+
+
 
 app.listen(process.env.PORT || 3000);
