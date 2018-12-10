@@ -30,8 +30,8 @@ http.createServer(function (request, response) {
     console.log('request starting...');
 
     var contentType = 'text/html';
-
-    fs.readFileSync(path.join(__dirname, './PlayerVsCPU.html'), function (error, content) {
+    console.log('Path: ' + __dirname);
+    fs.readFileSync(path.join(__dirname, '/PlayerVsCPU.html'), function (error, content) {
         if (error) {
             if (error.code == 'ENOENT') {
                 fs.readFile('./404.html', function (error, content) {
