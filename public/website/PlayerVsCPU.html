@@ -119,8 +119,8 @@ var cfg = {
 var reset = function() {
   board.start();
   game = new Chess();
-  $('#fen').val('');
-  $('#pgn').val('');
+  fenEl.html('');
+  pgnEl.html('');
 }
 board = ChessBoard('board', cfg);
 $('#resetBtn').on('click', reset);
