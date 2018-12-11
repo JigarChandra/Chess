@@ -12,6 +12,7 @@
   <p>Status: <span id="status"></span></p>
   <p>FEN: <span id="fen"></span></p>
   <p>PGN: <span id="pgn"></span></p>
+  <input type="button" id="resetBtn" value="Reset" />
   <script src="../node_modules/jquery/dist/jquery.min.js"></script>
   <script src="js/chess-0.10.2.min.js"></script>
   <script src="chessboard.js"></script>
@@ -41,7 +42,6 @@ var board,
   statusEl = $('#status'),
   fenEl = $('#fen'),
   pgnEl = $('#pgn');
-
 AIRunner.numberOfMoves = 0; // temp test code
 
 // do not pick up pieces if the game is over
@@ -116,8 +116,14 @@ var cfg = {
   onDrop: onDrop,
   onSnapEnd: onSnapEnd
 };
+var reset = function() {
+  board.start();
+  game = new Chess();
+  $('#fen').val('');
+  $('#pgn').val('');
+}
 board = ChessBoard('board', cfg);
-
+$('#resetBtn').on('click', reset);
 updateStatus();
   </script>
 </body>
