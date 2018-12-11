@@ -7,7 +7,7 @@
     "type": "git",
     "url": "git://github.com/oakmac/chessboardjs.git"
   },
-  "main": "website/app.js",
+  "main": "app.js",
   "dependencies": {
     "requirejs": "2.3.6",
     "jquery": ">=1.8.3",
@@ -19,7 +19,7 @@
     "standard": "10.0.2"
   },
   "scripts": {
-    "start": "node website/app.js"
+    "start": "node app.js"
   },
   "license": "MIT"
 }
