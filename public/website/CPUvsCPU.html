@@ -11,7 +11,8 @@
   <p>Status: <span id="status"></span></p>
   <p>FEN: <span id="fen"></span></p>
   <p>PGN: <span id="pgn"></span></p>
-  
+  <input type="button" id="playBtn" value="Play" />
+  <input type="button" id="pauseBtn" value="Pause" />
   <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
   <script src="js/chess-0.10.2.min.js"></script>
   <script src="chessboard.js"></script>
@@ -36,6 +37,7 @@
   <script src="strategies/DACandDefensiveAndRandomStrategy.js"></script>
   <script>
     var board,
+    isPaused = false,
   game = new Chess();
   statusEl = $('#status'),
   fenEl = $('#fen'),
@@ -76,7 +78,9 @@ var updateStatus = function() {
   fenEl.html(game.fen());
   pgnEl.html(game.pgn());
   console.log('updateStatus');
-  StrategyRunner.run(player1Strategy, player2Strategy, game, board);
+  if(!isPaused) {
+    StrategyRunner.run(player1Strategy, player2Strategy, game, board);
+  }
   var isGameOver =  function () {
     return (game.game_over() === true ||
           game.in_draw() === true ||
@@ -88,10 +92,17 @@ var updateStatus = function() {
     console.log('Game ended');
   }
 };
-
+var play = function() {
+  isPaused = false;
+}
+var pause = function() {
+  isPaused = true;
+}
 board = ChessBoard('#myBoard', 'start');
 StrategyRunner.numberOfMoves = 0; // temp test code
 window.setTimeout(updateStatus, 2000);
+$('#playBtn').on('click', play);
+$('#pauseBtn').on('click', pause);
   </script>
 </body>
 </html>
