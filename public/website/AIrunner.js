@@ -32,7 +32,7 @@ check if next set of possible moves contain a capture flag for that position
 
 class AIRunner {
 	
-	static run (Player2Strategy, gameEngine, board) {
+	static run (Player2Strategy, gameEngine, board, updateState) {
 		var selectedMove = null;
 		var isGameOver =  function () {
 			return (gameEngine.game_over() === true ||
@@ -51,7 +51,7 @@ class AIRunner {
 		// }
 		let res = gameEngine.move(selectedMove, {sloppy: true});
   		board.position(gameEngine.fen());
-
+  		updateState();
   		AIRunner.numberOfMoves+=1; // temp test code
   		// window.setTimeout(StrategyRunner.run, 2000, Player1Strategy, Player2Strategy, gameEngine, board);
 	}

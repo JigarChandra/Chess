@@ -44,38 +44,6 @@ var board,
   pgnEl = $('#pgn');
 AIRunner.numberOfMoves = 0; // temp test code
 
-// do not pick up pieces if the game is over
-// only pick up white pieces when it is white's turn
-var onDragStart = function(source, piece, position, orientation) {
-  if (game.game_over() === true ||
-      (game.turn() === 'w' && piece.search(/^b/) !== -1) ||
-      (game.turn() === 'b')) {
-    return false;
-  }
-};
-
-var onDrop = function(source, target) {
-  // see if the move is legal
-  var move = game.move({
-    from: source,
-    to: target,
-    promotion: 'q' // NOTE: always promote to a queen for example simplicity
-  });
-
-  // illegal move
-  if (move === null) return 'snapback';
-
-  updateStatus();
-  window.setTimeout(AIRunner.run, 2000, new DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrategy(), game, board);
-  updateStatus();
-};
-
-// update the board position after the piece snap 
-// for castling, en passant, pawn promotion
-var onSnapEnd = function() {
-  board.position(game.fen());
-};
-
 var updateStatus = function() {
   var status = '';
 
@@ -108,6 +76,40 @@ var updateStatus = function() {
   fenEl.html(game.fen());
   pgnEl.html(game.pgn());
 };
+
+// do not pick up pieces if the game is over
+// only pick up white pieces when it is white's turn
+var onDragStart = function(source, piece, position, orientation) {
+  if (game.game_over() === true ||
+      (game.turn() === 'w' && piece.search(/^b/) !== -1) ||
+      (game.turn() === 'b')) {
+    return false;
+  }
+};
+
+var onDrop = function(source, target) {
+  // see if the move is legal
+  var move = game.move({
+    from: source,
+    to: target,
+    promotion: 'q' // NOTE: always promote to a queen for example simplicity
+  });
+
+  // illegal move
+  if (move === null) return 'snapback';
+
+  updateStatus();
+  window.setTimeout(AIRunner.run, 2000, new DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrategy(), game, board, updateStatus);
+  updateStatus();
+};
+
+// update the board position after the piece snap 
+// for castling, en passant, pawn promotion
+var onSnapEnd = function() {
+  board.position(game.fen());
+};
+
+
 
 var cfg = {
   draggable: true,
