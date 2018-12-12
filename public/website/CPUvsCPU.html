@@ -49,7 +49,8 @@ var player2Strategy = new DACandOffensiveAndNextOffensiveAndDefensiveAndRandomSt
 var updateStatus = function() {
   var status = '';
 
-  var moveColor = 'White';
+  var updateState = function() {
+    var moveColor = 'White';
   if (game.turn() === 'b') {
     moveColor = 'Black';
   }
@@ -77,9 +78,12 @@ var updateStatus = function() {
   statusEl.html(status);
   fenEl.html(game.fen());
   pgnEl.html(game.pgn());
+  }
+
+  updateState();
   console.log('updateStatus');
   if(!isPaused) {
-    StrategyRunner.run(player1Strategy, player2Strategy, game, board);
+    StrategyRunner.run(player1Strategy, player2Strategy, game, board, updateState);
   }
   var isGameOver =  function () {
     return (game.game_over() === true ||
