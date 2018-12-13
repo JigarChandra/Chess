@@ -113,10 +113,10 @@ var reset = function() {
 }
 board = ChessBoard('#myBoard', 'start');
 StrategyRunner.numberOfMoves = 0; // temp test code
-window.setTimeout(updateStatus, 2000);
 $('#playBtn').on('click', play);
 $('#pauseBtn').on('click', pause);
 $('#resetBtn').on('click', reset);
+window.setTimeout(updateStatus, 2000);
   </script>
 </body>
 </html>
