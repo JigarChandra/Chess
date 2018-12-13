@@ -13,6 +13,7 @@
   <p>PGN: <span id="pgn"></span></p>
   <input type="button" id="playBtn" value="Play" />
   <input type="button" id="pauseBtn" value="Pause" />
+  <input type="button" id="resetBtn" value="Reset" />
   <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
   <script src="js/chess-0.10.2.min.js"></script>
   <script src="chessboard.js"></script>
@@ -102,11 +103,19 @@ var play = function() {
 var pause = function() {
   isPaused = true;
 }
+var reset = function() {
+  board.start();
+  game = new Chess();
+  statusEl.html('White to move');
+  fenEl.html('');
+  pgnEl.html('');
+}
 board = ChessBoard('#myBoard', 'start');
 StrategyRunner.numberOfMoves = 0; // temp test code
 window.setTimeout(updateStatus, 2000);
 $('#playBtn').on('click', play);
 $('#pauseBtn').on('click', pause);
+$('#resetBtn').on('click', reset);
   </script>
 </body>
 </html>
