@@ -4,10 +4,14 @@ class ForeSightProvider {
 		let futureGame = new Chess(fen);
 		let currMove = from + "-" + to;
 		futureGame.move(currMove, {sloppy: true});
+		// console.log('game over: ' + futureGame.game_over());
+		if (!futureGame.game_over()) {
+			return (futureGame.moves({verbose:true}).filter(isAttackingMove).length > 0);
+		}
 		function isAttackingMove(move) {
 				return (move.flags.includes("c") && (move.to === to));
 		}
-		return (futureGame.moves({verbose:true}).filter(isAttackingMove).length > 0);
+		return false;
 	}
 
 	static getBestCapture(gameInfo, pieceToMove, from, to) {

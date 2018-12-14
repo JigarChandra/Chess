@@ -50,8 +50,7 @@ class NextAttackingMoveGenerator {
 					var currScore = -1;
 					var currCapturedByScore =  Number.MAX_SAFE_INTEGER;
 
-					if (ForeSightProvider.getBestCapture(gameInfo, piece1, move.from, move.to) > piece1Score &&
-						//!ForeSightProvider.canGetCaptured(gameInfo, move.from, move.to)
+					if ( //!ForeSightProvider.canGetCaptured(gameInfo, move.from, move.to)
 						AttackingMoveGenerator.getBestAttackingMove(gameInfo, move.to).score < 0
 						) {
 
@@ -63,7 +62,19 @@ class NextAttackingMoveGenerator {
 						if ((opponentBestAttackingMove.score <= currOpponentBestAttackingMove.score 
 						 && !ForeSightProvider.canGetCaptured(gameInfo, move.from, move.to)
 						 ) || (opponentBestAttackingMove.score < 0)) {
-							currScore = ForeSightProvider.getBestCapture(gameInfo, piece1, move.from, move.to);
+							// currScore = ForeSightProvider.getBestCapture(gameInfo, piece1, move.from, move.to);
+							const futGameAtt = new Chess();
+							futGameAtt.load(gameInfo.fen());
+							let removedPiece = futGameAtt.remove(move.from);
+							if (removedPiece === null) {
+								throw 'Could not remove piece at: ' + move.from;
+							}
+							let res = futGameAtt.put(removedPiece, move.to);
+
+							if (res === false) {
+								throw 'Invalid move from,to: ' + move.from + "," + move.to;
+							}
+							currScore = AttackingMoveGenerator.getBestAttackingMove(futGameAtt, null, move.to);			
 							currCapturedByScore = piece1Score;
 						}
 
@@ -76,7 +87,7 @@ class NextAttackingMoveGenerator {
 				}
 				nonAttackingMoves.forEach(getMoveWithBestScore);
 				let finalScore = (currBestScore*0.7);
-
+				// console.log('Found a move: ' + finalScore + ',' + currBestMove);
 				return {score: (currBestScore*0.7), move: currBestMove};
 			} else {
 				return {score: -1, move: null}

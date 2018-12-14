@@ -98,19 +98,30 @@ class DefensiveMoveGenerator {
 					}
 					let bestNonVulnerableMove = NonVulnerableMoveGenerator.getBestNonVulnerableMove(gameInfo, vulnerablePiecePos);
 					if (bestNonVulnerableMove != null) {
+						// console.log('returning 4');
 						return {score: vulnerablePieceScore, move: bestNonVulnerableMove};
+					}
+
+					if (bestAttackingMove.move != null) {
+						const futGame = new Chess();
+						futGame.load(gameInfo.fen());
+						futGame.move(bestAttackingMove.move, {sloppy: true});
+						if (AttackingMoveGenerator.getBestAttackingMove(futGame).score > currBestScore) {
+							// console.log('Aborting defense move for current piece as it exposes a more valuable piece');
+							// TODO: Return a non vulnerable move NOT with the current piece
+							return {score: -1, move: null};
+						}
+						// make most impact before getting captured
+						// console.log('returning 5');
+						return {score: vulnerablePieceScore, move: bestAttackingMove.move};	
 					}
 
 					// find worst opponent attacking move
 					let worstPos = DefensiveMoveGenerator.getWorstOpponentAttackingPos(gameInfo, vulnerablePiecePos);
 					if (worstPos != null) {
+						// console.log('returning 6');
 						return {score: vulnerablePieceScore, 
 						move: vulnerablePiecePos + '-' + DefensiveMoveGenerator.getWorstOpponentAttackingPos(gameInfo, vulnerablePiecePos)};
-					}
-
-					if (bestAttackingMove.move != null) {
-						// make most impact before getting captured
-						return {score: vulnerablePieceScore, move: bestAttackingMove.move};	
 					}
 
 					// TODO: find a supporting piece-move in a non vulnerable pos

@@ -56,7 +56,8 @@ class NonVulnerableMoveGenerator {
 
 					let futMoveRes = futureGame.move(nonCapturingMoves[i].from + '-' + nonCapturingMoves[i].to, {sloppy: true});
 
-					let bestAttackingMove = AttackingMoveGenerator.getBestAttackingMove(futureGame, nonCapturingMoves[i].to);
+					// let bestAttackingMove = AttackingMoveGenerator.getBestAttackingMove(futureGame, nonCapturingMoves[i].to);
+					let bestAttackingMove = AttackingMoveGenerator.getBestAttackingMove(futureGame);
 
 					let futureOpponentBestAttackingMove = AttackingMoveGenerator.getBestAttackingMove(futureGame);
 
@@ -168,10 +169,14 @@ class NonVulnerableMoveGenerator {
 				return (parseInt(move.from.charAt(1)) > parseInt(move.to.charAt(1)));
 			}
 		}
+		function isNotKingPiece(piece) {
+			return PieceInfoGenerator.generateType(piece) !== gameInfo.KING;
+		}
 		let nonPawnMoves = safeMoves.filter(isNotPawnMove);
 		for (var i =0; i < nonPawnMoves.length; i++) {
 			var weight = 0;
-			if(isDevelopingTowardsOppKing(nonPawnMoves[i])) {
+			// discourage king movements
+			if (isNotKingPiece(nonPawnMoves[i].piece) && isDevelopingTowardsOppKing(nonPawnMoves[i])) {
 				weight += 2;
 			}
 			let distance = Math.abs(parseInt(nonPawnMoves[i].from.charAt(1)) - parseInt(nonPawnMoves[i].to.charAt(1)));
