@@ -49,7 +49,6 @@ class NextAttackingMoveGenerator {
 					let piece1Score = PieceInfoGenerator.generateScore(piece1);
 					var currScore = -1;
 					var currCapturedByScore =  Number.MAX_SAFE_INTEGER;
-
 					if ( //!ForeSightProvider.canGetCaptured(gameInfo, move.from, move.to)
 						AttackingMoveGenerator.getBestAttackingMove(gameInfo, move.to).score < 0
 						) {
@@ -74,12 +73,13 @@ class NextAttackingMoveGenerator {
 							if (res === false) {
 								throw 'Invalid move from,to: ' + move.from + "," + move.to;
 							}
-							currScore = AttackingMoveGenerator.getBestAttackingMove(futGameAtt, null, move.to);			
+							const currMove = AttackingMoveGenerator.getBestAttackingMove(futGameAtt, null, move.to);
+							currScore = currMove.score;
 							currCapturedByScore = piece1Score;
 						}
 
 					}
-					if (currScore >= currBestScore && currCapturedByScore < currBestCapturedByScore) {
+					if (currScore >= currBestScore && currCapturedByScore <= currBestCapturedByScore) {
 						currBestScore = currScore;
 						currBestCapturedByScore = currCapturedByScore;
 						currBestMove = move.from + "-" + move.to;
@@ -87,7 +87,7 @@ class NextAttackingMoveGenerator {
 				}
 				nonAttackingMoves.forEach(getMoveWithBestScore);
 				let finalScore = (currBestScore*0.7);
-				// console.log('Found a move: ' + finalScore + ',' + currBestMove);
+				console.log('Found a move: ' + finalScore + ',' + currBestMove);
 				return {score: (currBestScore*0.7), move: currBestMove};
 			} else {
 				return {score: -1, move: null}

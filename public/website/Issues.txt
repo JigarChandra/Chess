@@ -30,6 +30,8 @@ r1bqkb1r/pppppppp/7n/8/8/2NBnPP1/PPPP3P/R1BQ1KNR w kq - 0 10
 31. DefensiveStrategy places black knight in a non vulnerable spot:
 r1bqkbnr/1ppppppp/8/p2Pn3/5P2/4B3/PPP1P1PP/RN1QKBNR b KQkq f3 0 8
 
+
+
 ------------------------------------------------------------------
 
 Feature requests:
@@ -119,3 +121,6 @@ r2qk2r/2ppn3/bb3ppp/3Qp3/2P1P3/P2P1P1N/4K1nP/BN1R4 w kq - 8 28 --> FIXED
 
 34. DefensiveStrategy moves black pawn ahead and makes black rook vulnerable:
 rn1q1b1r/1ppkn3/4ppbp/3p4/pP1B1PpP/Q2P4/P1P1P1P1/RN1K1BNR b - - 5 14 --> FIXED
+
+35. NextOffensive does not recommend moving black pawn to attack white knight:
+r1bqkbr1/pppp3p/n5pn/3Npp2/1P5P/2P5/P2PPPP1/1RBQKBNR b K - 0 15 --> FIXED
