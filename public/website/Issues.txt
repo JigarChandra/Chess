@@ -30,6 +30,9 @@ r1bqkb1r/pppppppp/7n/8/8/2NBnPP1/PPPP3P/R1BQ1KNR w kq - 0 10
 31. DefensiveStrategy places black knight in a non vulnerable spot:
 r1bqkbnr/1ppppppp/8/p2Pn3/5P2/4B3/PPP1P1PP/RN1QKBNR b KQkq f3 0 8
 
+34. DefensiveStrategy moves black pawn ahead and makes black rook vulnerable:
+rn1q1b1r/1ppkn3/4ppbp/3p4/pP1B1PpP/Q2P4/P1P1P1P1/RN1K1BNR b - - 5 14
+
 ------------------------------------------------------------------
 
 Feature requests:

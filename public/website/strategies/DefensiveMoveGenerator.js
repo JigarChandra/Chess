@@ -101,25 +101,35 @@ class DefensiveMoveGenerator {
 						// console.log('returning 4');
 						return {score: vulnerablePieceScore, move: bestNonVulnerableMove};
 					}
-
-					if (bestAttackingMove.move != null) {
+					function exposesValuablePiece(move) {
 						const futGame = new Chess();
 						futGame.load(gameInfo.fen());
-						futGame.move(bestAttackingMove.move, {sloppy: true});
+						futGame.move(move, {sloppy: true});
 						if (AttackingMoveGenerator.getBestAttackingMove(futGame).score > currBestScore) {
+							// console.log('Aborting defense move for current piece as it exposes a more valuable piece');
+							// TODO: Return a non vulnerable move NOT with the current piece
+							return true;
+						}
+					}
+					if (bestAttackingMove.move != null) {
+						if (exposesValuablePiece(bestAttackingMove.move)) {
 							// console.log('Aborting defense move for current piece as it exposes a more valuable piece');
 							// TODO: Return a non vulnerable move NOT with the current piece
 							return {score: -1, move: null};
 						}
 						// make most impact before getting captured
-						// console.log('returning 5');
+						console.log('returning 5');
 						return {score: vulnerablePieceScore, move: bestAttackingMove.move};	
 					}
 
 					// find worst opponent attacking move
 					let worstPos = DefensiveMoveGenerator.getWorstOpponentAttackingPos(gameInfo, vulnerablePiecePos);
 					if (worstPos != null) {
-						// console.log('returning 6');
+						if (exposesValuablePiece(vulnerablePiecePos + '-' + worstPos)) {
+							console.log('Aborting move as it exposes another valuable piece');
+							return {score: -1, move: null};
+						}
+						console.log('returning 6');
 						return {score: vulnerablePieceScore, 
 						move: vulnerablePiecePos + '-' + DefensiveMoveGenerator.getWorstOpponentAttackingPos(gameInfo, vulnerablePiecePos)};
 					}
