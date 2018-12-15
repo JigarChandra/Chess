@@ -35,8 +35,9 @@ check if next set of possible moves contain a capture flag for that position
 class DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrategy {
 	move(gameInfo) {
 		let strategies = [new DefenseAgainstCheckSubStrategy(), new OffensiveSubStrategy(),
-						  new DefensiveSubStrategy(), new NextOffensiveSubStrategy(),
+						  new DefensiveSubStrategy(),
 						  new TwoStepCheckMateSubStrategy(),
+						  new NextOffensiveSubStrategy(),
 						  new NonVulnerableSubStrategy(), new RandomSubStrategy(new RandomStrategy())];
 		var currBestScore = -1;
 		var currBestMove = null;
@@ -44,6 +45,10 @@ class DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrategy {
 		for (var i = 0; i < strategies.length; i++) {
 			let currStrategy = strategies[i].move(gameInfo);
 			let currScore = currStrategy.score, currMove = currStrategy.move;
+			// to execute immediate attacking / defending moves
+			if (currStrategy.strategy === 'NextOffensive' && currBestScore > 0) {
+				continue;
+			}
 			// console.log('BestScore, currScore, currStrategy, move: ' + currBestScore + ' ' + currScore + ' ' + currStrategy.strategy + ' ' + currMove);
 			if (currScore > currBestScore) {
 				currBestScore = currScore;

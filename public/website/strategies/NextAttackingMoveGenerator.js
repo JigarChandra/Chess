@@ -49,18 +49,22 @@ class NextAttackingMoveGenerator {
 					let piece1Score = PieceInfoGenerator.generateScore(piece1);
 					var currScore = -1;
 					var currCapturedByScore =  Number.MAX_SAFE_INTEGER;
-					if ( //!ForeSightProvider.canGetCaptured(gameInfo, move.from, move.to)
-						AttackingMoveGenerator.getBestAttackingMove(gameInfo, move.to).score < 0
-						) {
 
-						let futGame = new Chess(gameInfo.fen());
-						futGame.move(move.from + '-' + move.to, {sloppy: true});
-						let opponentBestAttackingMove = AttackingMoveGenerator.getBestAttackingMove(futGame);
+					let futureGameWithMove = new Chess();
+					futureGameWithMove.load(futureGame.fen());
+					let removedPiece = futureGameWithMove.remove(move.from);
+					let putRes = futureGameWithMove.put(removedPiece, move.to);
+					let bestOppMoveAfterFirstMove = AttackingMoveGenerator.getBestAttackingMove(futureGameWithMove, move.to);
+
+					if ((bestOppMoveAfterFirstMove.score <= currOpponentBestAttackingMove.score 
+						 && !ForeSightProvider.canGetCaptured(gameInfo, move.from, move.to)
+						 ) || (bestOppMoveAfterFirstMove.score < 0)) {
+
+						// let futGame = new Chess(gameInfo.fen());
+						// futGame.move(move.from + '-' + move.to, {sloppy: true});
+						// let opponentBestAttackingMove = AttackingMoveGenerator.getBestAttackingMove(futGame);
 
 						// ensure that this move does not make any other piece vulnerable
-						if ((opponentBestAttackingMove.score <= currOpponentBestAttackingMove.score 
-						 && !ForeSightProvider.canGetCaptured(gameInfo, move.from, move.to)
-						 ) || (opponentBestAttackingMove.score < 0)) {
 							// currScore = ForeSightProvider.getBestCapture(gameInfo, piece1, move.from, move.to);
 							const futGameAtt = new Chess();
 							futGameAtt.load(gameInfo.fen());
@@ -76,18 +80,35 @@ class NextAttackingMoveGenerator {
 							const currMove = AttackingMoveGenerator.getBestAttackingMove(futGameAtt, null, move.to);
 							currScore = currMove.score;
 							currCapturedByScore = piece1Score;
-						}
+							// console.log('first move fen: ' + futGameAtt.fen());
+							// console.log('first move from, to: ' + move.from + ' , ' + move.to);
+							// console.log('currMove: ' + JSON.stringify(currMove));
 
 					}
-					if (currScore >= currBestScore && currCapturedByScore <= currBestCapturedByScore) {
+					else {
+						// console.log('Skipping next offensive via from, to due to imminent capture by opponent: '
+						//  + move.from + ' , ' + move.to + ' , ' + JSON.stringify(bestOppMoveAfterFirstMove));
+					}
+
+					if (currScore >= currBestScore) {
+						if (currScore === currBestScore) {
+							if (currCapturedByScore <= currBestCapturedByScore) {
+								currBestScore = currScore;
+								currBestCapturedByScore = currCapturedByScore;
+								currBestMove = move.from + "-" + move.to;		
+							}
+						}
 						currBestScore = currScore;
 						currBestCapturedByScore = currCapturedByScore;
 						currBestMove = move.from + "-" + move.to;
+						// console.log('currScore, currBestScore, currCapturedByScore, currBestCapturedByScore: ' 
+						// 	+ currScore + ' , ' + currBestScore + ' , ' + currCapturedByScore + ' , ' + currBestCapturedByScore);
+						// console.log('currBestMove: ' + currBestMove);
 					}
 				}
 				nonAttackingMoves.forEach(getMoveWithBestScore);
 				let finalScore = (currBestScore*0.7);
-				console.log('Found a move: ' + finalScore + ',' + currBestMove);
+				// console.log('Found a move: ' + finalScore + ',' + currBestMove);
 				return {score: (currBestScore*0.7), move: currBestMove};
 			} else {
 				return {score: -1, move: null}

@@ -5,8 +5,8 @@ class TwoStepCheckMateMoveGenerator {
 				return (! move.flags.includes('e'));
 			}
 
-			let oneStepCheckMateMove = TwoStepCheckMateMoveGenerator.getCheckMateMoveInOneTurn(gameInfo);
-			if(oneStepCheckMateMove != null) {
+			let oneStepCheckMateMove = TwoStepCheckMateMoveGenerator.getCheckMateMoveInOneTurn(gameInfo, );
+			if(oneStepCheckMateMove != null && !MovesUtil.isInThreeFold(gameInfo, oneStepCheckMateMove.from, oneStepCheckMateMove.to)) {
 				return {score: (13), move: oneStepCheckMateMove};
 			}
 
@@ -29,7 +29,7 @@ class TwoStepCheckMateMoveGenerator {
 					if (TwoStepCheckMateMoveGenerator.getCheckMateMove(futureGame, move) != null) {
 						checkMateMove = move;
 					}
-					if (checkMateMove != null) {
+					if (checkMateMove != null && !MovesUtil.isInThreeFold(gameInfo, checkMateMove.from, checkMateMove.to)) {
 					return {score: (13), move: (checkMateMove.from + '-' + checkMateMove.to)};	
 					}
 				}

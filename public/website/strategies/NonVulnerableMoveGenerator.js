@@ -5,7 +5,6 @@ class NonVulnerableMoveGenerator {
 
 	static getBestNonVulnerableMove(gameInfo, fromPos, isNonDefensive) {
 		let moves = NonVulnerableMoveGenerator.getNonVulnerableMoves(gameInfo, fromPos, isNonDefensive);
-
 			if (moves.saferMoves && moves.saferMoves.length > 0) {
 				let developingMoves = NonVulnerableMoveGenerator.getDevelopingNonVulnerableMoves(gameInfo, moves.saferMoves);
 				if(developingMoves.length > 0) {
@@ -57,7 +56,7 @@ class NonVulnerableMoveGenerator {
 					let futMoveRes = futureGame.move(nonCapturingMoves[i].from + '-' + nonCapturingMoves[i].to, {sloppy: true});
 
 					// let bestAttackingMove = AttackingMoveGenerator.getBestAttackingMove(futureGame, nonCapturingMoves[i].to);
-					let bestAttackingMove = AttackingMoveGenerator.getBestAttackingMove(futureGame);
+					// let bestAttackingMove = AttackingMoveGenerator.getBestAttackingMove(futureGame);
 
 					let futureOpponentBestAttackingMove = AttackingMoveGenerator.getBestAttackingMove(futureGame);
 
@@ -65,7 +64,7 @@ class NonVulnerableMoveGenerator {
 						saferMoves.push({from: nonCapturingMoves[i].from, to:nonCapturingMoves[i].to, piece: nonCapturingMoves[i].piece});
 					}
 
-					if (bestAttackingMove.score <= -1) {
+					if (futureOpponentBestAttackingMove.score <= -1) {
 						safeMoves.push({from: nonCapturingMoves[i].from, to:nonCapturingMoves[i].to, piece: nonCapturingMoves[i].piece});
 					}
 				}

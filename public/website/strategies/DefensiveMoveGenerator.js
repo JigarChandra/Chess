@@ -7,7 +7,6 @@ class DefensiveMoveGenerator {
 	      2. Also consider a case where two valuable pieces may be simultaneously vulnerable by the same attacker
 	      in which case can move one of the vulnerable pieces to check the opponent-king and protect the other
 	      vulnerable piece on the next turn
-	      3. Discover opponent moves that may result in a check-mate on next turn
 
 	Excellent e.g: 
 	4kb1r/2pqpppp/2pp1n1r/5P2/pPb1P3/P1NP3P/2P2KP1/RNBQ3R b k - 0 22
@@ -67,6 +66,13 @@ class DefensiveMoveGenerator {
 
 				if (currBestScore > -1) {
 					var bestAttackingMoves = [];
+
+					let bestAttackingMoveAttacker = AttackingMoveGenerator.getBestAttackingMove(gameInfo, attackerPos);
+					if (bestAttackingMoveAttacker.score > 0 && !exposesValuablePiece(bestAttackingMoveAttacker.move)) {
+						bestAttackingMoves.push(bestAttackingMoveAttacker);
+						return {score: (currBestScore + bestAttackingMoves[0].score), move: bestAttackingMoves[0].move};
+					}
+
 					let bestAttackingMove = AttackingMoveGenerator.getBestAttackingMove(gameInfo, null, vulnerablePiecePos);
 					// console.log('bestAttacking move, score: ' + bestAttackingMove.move + ',' + bestAttackingMove.score);
 					if (bestAttackingMove.score > 0) {
@@ -80,7 +86,7 @@ class DefensiveMoveGenerator {
 					if (bestAttackingMoves.length === 1) {
 						// console.log('returning 1');
 						return {score: (currBestScore + bestAttackingMoves[0].score), move: bestAttackingMoves[0].move};
-					} else if (bestAttackingMoves.length === 2) {
+					} else if (bestAttackingMoves.length > 1) {
 						if (bestAttackingMoves[0].score > bestAttackingMoves[1].score) {
 							// console.log('returning 2');
 							return {score: (currBestScore + bestAttackingMoves[0].score), move: bestAttackingMoves[0].move};
@@ -93,6 +99,7 @@ class DefensiveMoveGenerator {
 						// Shielding cannot be done against knight
 						let shieldMove = ShieldMoveGenerator.getBestShieldingMove(gameInfo, attackerPos, vulnerablePiecePos);
 						if (shieldMove != null) {
+							// console.log('returning shield move');
 							return {score: vulnerablePieceScore, move: shieldMove};
 						}
 					}
@@ -115,10 +122,11 @@ class DefensiveMoveGenerator {
 						if (exposesValuablePiece(bestAttackingMove.move)) {
 							// console.log('Aborting defense move for current piece as it exposes a more valuable piece');
 							// TODO: Return a non vulnerable move NOT with the current piece
+							// console.log('exposes valuable piece');
 							return {score: -1, move: null};
 						}
 						// make most impact before getting captured
-						console.log('returning 5');
+						// console.log('returning 5');
 						return {score: vulnerablePieceScore, move: bestAttackingMove.move};	
 					}
 
@@ -126,18 +134,20 @@ class DefensiveMoveGenerator {
 					let worstPos = DefensiveMoveGenerator.getWorstOpponentAttackingPos(gameInfo, vulnerablePiecePos);
 					if (worstPos != null) {
 						if (exposesValuablePiece(vulnerablePiecePos + '-' + worstPos)) {
-							console.log('Aborting move as it exposes another valuable piece');
+							// console.log('Aborting move as it exposes another valuable piece');
 							return {score: -1, move: null};
 						}
-						console.log('returning 6');
+						// console.log('returning 6');
 						return {score: vulnerablePieceScore, 
 						move: vulnerablePiecePos + '-' + DefensiveMoveGenerator.getWorstOpponentAttackingPos(gameInfo, vulnerablePiecePos)};
 					}
 
 					// TODO: find a supporting piece-move in a non vulnerable pos
 				}
+				// console.log('returning 7');
 				return {score: -1, move: null};
 			} else {
+				// console.log('returning 8');
 				return {score: -1, move: null};
 			}
 	}
