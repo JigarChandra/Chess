@@ -3,8 +3,9 @@ Find possible moves from vulnerablePiecePos and returns a random pos where it ca
 */
 class NonVulnerableMoveGenerator {
 
-	static getBestNonVulnerableMove(gameInfo, fromPos, isNonDefensive) {
-		let moves = NonVulnerableMoveGenerator.getNonVulnerableMoves(gameInfo, fromPos, isNonDefensive);
+	static getBestNonVulnerableMove(gameInfo, fromPos, isDefensive) {
+		let moves = NonVulnerableMoveGenerator.getNonVulnerableMoves(gameInfo, fromPos, isDefensive);
+		// console.log('non vul moves: ' + JSON.stringify(moves));
 			if (moves.saferMoves && moves.saferMoves.length > 0) {
 				let developingMoves = NonVulnerableMoveGenerator.getDevelopingNonVulnerableMoves(gameInfo, moves.saferMoves);
 				if(developingMoves.length > 0) {
@@ -24,7 +25,7 @@ class NonVulnerableMoveGenerator {
 			return null;
 	}
 
-	static getNonVulnerableMoves(gameInfo, fromPos, isNonDefensive) {
+	static getNonVulnerableMoves(gameInfo, fromPos, isDefensive) {
 		function isNonCaptureMove(move) {
 			if (typeof fromPos === 'string') {
 				return (move.flags.includes("n") && move.from === fromPos);
@@ -44,6 +45,7 @@ class NonVulnerableMoveGenerator {
 			return true;
 		}
 		let currOpponentBestAttackingMove = AttackingMoveGenerator.getOpponentBestAttackingMove(gameInfo);
+		console.log('currOpponentBestAttackingMove: ' + JSON.stringify(currOpponentBestAttackingMove));
 		var saferMoves = [];
 		var nonCapturingMoves = gameInfo.moves({verbose:true}).filter(isNonCaptureMove);
 			if (nonCapturingMoves.length > 0) {
@@ -52,15 +54,18 @@ class NonVulnerableMoveGenerator {
 				var safeMoves = [];
 				for (var i = 0; i < nonCapturingMoves.length; i++) {
 					var futureGame = new Chess(gameInfo.fen());
-
-					let futMoveRes = futureGame.move(nonCapturingMoves[i].from + '-' + nonCapturingMoves[i].to, {sloppy: true});
+					let futureMove = nonCapturingMoves[i].from + '-' + nonCapturingMoves[i].to;
+					let futMoveRes = futureGame.move(futureMove, {sloppy: true});
 
 					// let bestAttackingMove = AttackingMoveGenerator.getBestAttackingMove(futureGame, nonCapturingMoves[i].to);
 					// let bestAttackingMove = AttackingMoveGenerator.getBestAttackingMove(futureGame);
 
 					let futureOpponentBestAttackingMove = AttackingMoveGenerator.getBestAttackingMove(futureGame);
-
-					if (futureOpponentBestAttackingMove.score < currOpponentBestAttackingMove.score || futureOpponentBestAttackingMove.score <= 0) {
+					// need to ensure a perfectly safe non-vulnerable move if a piece needs to be defended
+					if ((futureOpponentBestAttackingMove.score < currOpponentBestAttackingMove.score && !isDefensive) || futureOpponentBestAttackingMove.score <= 0) {
+						// console.log('futureMove: ' + futureMove);
+						// console.log('was successful: ' + futMoveRes);
+						// console.log('futureOpponentBestAttackingMove: ' + JSON.stringify(futureOpponentBestAttackingMove));
 						saferMoves.push({from: nonCapturingMoves[i].from, to:nonCapturingMoves[i].to, piece: nonCapturingMoves[i].piece});
 					}
 

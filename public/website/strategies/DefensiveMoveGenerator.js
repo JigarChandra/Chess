@@ -70,6 +70,7 @@ class DefensiveMoveGenerator {
 					let bestAttackingMoveAttacker = AttackingMoveGenerator.getBestAttackingMove(gameInfo, attackerPos);
 					if (bestAttackingMoveAttacker.score > 0 && !exposesValuablePiece(bestAttackingMoveAttacker.move)) {
 						bestAttackingMoves.push(bestAttackingMoveAttacker);
+						// console.log('returning move to capture attacking piece');
 						return {score: (currBestScore + bestAttackingMoves[0].score), move: bestAttackingMoves[0].move};
 					}
 
@@ -103,7 +104,7 @@ class DefensiveMoveGenerator {
 							return {score: vulnerablePieceScore, move: shieldMove};
 						}
 					}
-					let bestNonVulnerableMove = NonVulnerableMoveGenerator.getBestNonVulnerableMove(gameInfo, vulnerablePiecePos);
+					let bestNonVulnerableMove = NonVulnerableMoveGenerator.getBestNonVulnerableMove(gameInfo, vulnerablePiecePos, true);
 					if (bestNonVulnerableMove != null) {
 						// console.log('returning 4');
 						return {score: vulnerablePieceScore, move: bestNonVulnerableMove};
