@@ -45,7 +45,7 @@ class NonVulnerableMoveGenerator {
 			return true;
 		}
 		let currOpponentBestAttackingMove = AttackingMoveGenerator.getOpponentBestAttackingMove(gameInfo);
-		console.log('currOpponentBestAttackingMove: ' + JSON.stringify(currOpponentBestAttackingMove));
+		// console.log('currOpponentBestAttackingMove: ' + JSON.stringify(currOpponentBestAttackingMove));
 		var saferMoves = [];
 		var nonCapturingMoves = gameInfo.moves({verbose:true}).filter(isNonCaptureMove);
 			if (nonCapturingMoves.length > 0) {
