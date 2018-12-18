@@ -48,6 +48,9 @@ class ForeSightProvider {
 		}
 
 		try {
+			if (futureGame.game_over()) {
+				throw 'Game finished while looking up a future move'
+			}
 			let attackingMoves = futureGame.moves({verbose:true}).filter(isAttackingMove);
 			return Math.max.apply(Math, attackingMoves.map(function(o) { return PieceInfoGenerator.generateScore(o.captured); }));
 		} catch (err) {

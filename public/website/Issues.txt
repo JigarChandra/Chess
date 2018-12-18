@@ -39,8 +39,8 @@ rn1qk2r/1bppp2p/p3PBp1/3P1p2/2P5/3B1P1N/P5PP/R2QK2R b KQkq - 0 16
 40. DefensiveStrategy does not defend white queen:
 1rbqk1nr/ppppp2p/5ppb/3Pn3/5Q2/5P1N/PPP1P1PP/RNB1KB1R w KQk - 2 11
 
-41. Moves black queen to d5 as opposed to d6:
-rnb1kbnr/pp1ppppp/2p5/8/3P4/2BBPN2/PqP2PPP/RN1QK2R b KQkq - 1 6
+41. Game breaks down:
+rnb1kb1r/p1qppppp/1p5n/5P2/2pN4/8/PPPPP1PP/R1BQKBNR b KQkq - 0 7
 
 ------------------------------------------------------------------
 

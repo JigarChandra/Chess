@@ -54,6 +54,9 @@ class TwoStepCheckMateMoveGenerator {
 	}
 
 	static getCheckMateMove(gameInfo, move) {
+		if (gameInfo.game_over()) {
+			throw 'Error'
+		}
 		let allMoves = gameInfo.moves();
 		for (var i = 0; i < allMoves.length; i++) {
 			let currMove = allMoves[i];
