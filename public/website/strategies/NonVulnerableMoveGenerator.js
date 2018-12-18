@@ -61,7 +61,7 @@ class NonVulnerableMoveGenerator {
 					// need to ensure a perfectly safe non-vulnerable move if a piece needs to be defended
 					if ((futureOpponentBestAttackingMove.score < currOpponentBestAttackingMove.score && !isDefensive) 
 						|| futureOpponentBestAttackingMove.score <= 0
-						|| (!(ForeSightProvider.canGetCaptured(gameInfo, nonCapturingMoves[i].from, nonCapturingMoves[i].to) && isDefensive))) {
+						|| (!(ForeSightProvider.canGetCaptured(gameInfo, nonCapturingMoves[i].from, nonCapturingMoves[i].to)) && isDefensive)) {
 						// console.log('futureMove: ' + futureMove);
 						// console.log('was successful: ' + futMoveRes);
 						// console.log('futureOpponentBestAttackingMove: ' + JSON.stringify(futureOpponentBestAttackingMove));
