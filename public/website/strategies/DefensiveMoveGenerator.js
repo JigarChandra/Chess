@@ -68,6 +68,7 @@ class DefensiveMoveGenerator {
 					var bestAttackingMoves = [];
 
 					let bestAttackingMoveAttacker = AttackingMoveGenerator.getBestAttackingMove(gameInfo, attackerPos);
+					// console.log('bestAttackingMoveAttacker: ' + JSON.stringify(bestAttackingMoveAttacker));
 					if (bestAttackingMoveAttacker.score > 0 && !exposesValuablePiece(bestAttackingMoveAttacker.move)) {
 						bestAttackingMoves.push(bestAttackingMoveAttacker);
 						// console.log('returning move to capture attacking piece');

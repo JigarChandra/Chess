@@ -39,8 +39,8 @@ rn1qk2r/1bppp2p/p3PBp1/3P1p2/2P5/3B1P1N/P5PP/R2QK2R b KQkq - 0 16
 40. DefensiveStrategy does not defend white queen:
 1rbqk1nr/ppppp2p/5ppb/3Pn3/5Q2/5P1N/PPP1P1PP/RNB1KB1R w KQk - 2 11
 
-41. Game breaks down:
-rnb1kb1r/p1qppppp/1p5n/5P2/2pN4/8/PPPPP1PP/R1BQKBNR b KQkq - 0 7
+42. DefensiveStrategy tries to capture attacking black bishop whereas better move is to move away to a safe position:
+r3kr2/pbb3p1/nq5p/1p1Qpp2/8/P2PPPP1/5N2/RNB3KR w q - 2 31 --> FIXED
 
 ------------------------------------------------------------------
 
@@ -140,3 +140,6 @@ r1bqkbr1/pppp3p/n5pn/3Npp2/1P5P/2P5/P2PPPP1/1RBQKBNR b K - 0 15 --> FIXED
 
 39. NextOffensiveStrategy tries to attack white queen and takes precedence over defending black knight:
 1rbqkbnr/pppppppp/8/3PnQ2/8/5P2/PPP1P1PP/RNB1KBNR b KQk - 6 8 --> FIXED
+
+41. Game breaks down:
+rnb1kb1r/p1qppppp/1p5n/5P2/2pN4/8/PPPPP1PP/R1BQKBNR b KQkq - 0 7 --> FIXED
