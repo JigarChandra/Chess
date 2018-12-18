@@ -112,10 +112,12 @@ var reset = function() {
   statusEl.html('White to move');
   fenEl.html('');
   pgnEl.html('');
-  window.setTimeout(updateStatus, 2000);
+  StrategyRunner.numberOfMoves = 0;
+  console.log('reset called');
+  // window.setTimeout(updateStatus, 2000);
 }
 board = ChessBoard('#myBoard', 'start');
-StrategyRunner.numberOfMoves = 0; // temp test code
+StrategyRunner.numberOfMoves = 0;
 $('#playBtn').on('click', play);
 $('#pauseBtn').on('click', pause);
 $('#resetBtn').on('click', reset);
