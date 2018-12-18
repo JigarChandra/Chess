@@ -143,3 +143,6 @@ r1bqkbr1/pppp3p/n5pn/3Npp2/1P5P/2P5/P2PPPP1/1RBQKBNR b K - 0 15 --> FIXED
 
 41. Game breaks down:
 rnb1kb1r/p1qppppp/1p5n/5P2/2pN4/8/PPPPP1PP/R1BQKBNR b KQkq - 0 7 --> FIXED
+
+43. NonVulnerableStrategy tries to move black from a5 to d5 where it will get captured:
+rnb1kbnr/pp1ppppp/2p5/q7/3P1P2/2P3PP/PP2P2R/RNBQKBN1 b Qkq - 0 6 --> FIXED
