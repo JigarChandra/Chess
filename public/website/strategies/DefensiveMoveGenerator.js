@@ -105,11 +105,6 @@ class DefensiveMoveGenerator {
 							return {score: vulnerablePieceScore, move: shieldMove};
 						}
 					}
-					let bestNonVulnerableMove = NonVulnerableMoveGenerator.getBestNonVulnerableMove(gameInfo, vulnerablePiecePos, true);
-					if (bestNonVulnerableMove != null) {
-						// console.log('returning 4');
-						return {score: vulnerablePieceScore, move: bestNonVulnerableMove};
-					}
 					function exposesValuablePiece(move) {
 						const futGame = new Chess();
 						futGame.load(gameInfo.fen());
@@ -119,6 +114,11 @@ class DefensiveMoveGenerator {
 							// TODO: Return a non vulnerable move NOT with the current piece
 							return true;
 						}
+					}
+					let bestNonVulnerableMove = NonVulnerableMoveGenerator.getBestNonVulnerableMove(gameInfo, vulnerablePiecePos, true);
+					if (bestNonVulnerableMove != null && !exposesValuablePiece(bestNonVulnerableMove)) {
+						// console.log('returning 4');
+						return {score: vulnerablePieceScore, move: bestNonVulnerableMove};
 					}
 					if (bestAttackingMove.move != null) {
 						if (exposesValuablePiece(bestAttackingMove.move)) {

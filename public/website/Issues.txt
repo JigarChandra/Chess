@@ -42,6 +42,12 @@ rn1qk2r/1bppp2p/p3PBp1/3P1p2/2P5/3B1P1N/P5PP/R2QK2R b KQkq - 0 16
 42. DefensiveStrategy tries to capture attacking black bishop whereas better move is to move away to a safe position:
 r3kr2/pbb3p1/nq5p/1p1Qpp2/8/P2PPPP1/5N2/RNB3KR w q - 2 31 --> FIXED
 
+44. Strategies need to develop pieces:
+r2k2nr/1bpq2b1/1p1pp2p/pP3ppn/P1PP4/4PP2/3K1NPP/RNB1QB1R w - - 14 29
+
+45. DefensiveStrategy exposes white rook at h1:
+1rqk2n1/1bp3br/1p1ppnNp/pP6/P1PP2p1/4P3/4B1PP/RNBKQ2R w - - 2 38
+
 ------------------------------------------------------------------
 
 Feature requests:
