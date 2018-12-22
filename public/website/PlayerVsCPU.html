@@ -10,6 +10,7 @@
 <body>
   <div id="board" style="width: 400px"></div>
   <input type="button" id="resetBtn" value="Reset" />
+  <input type="button" id="undoBtn" value="Undo" />
   <p>Status: <span id="status"></span></p>
   <p>FEN: <span id="fen"></span></p>
   <p>PGN: <span id="pgn"></span></p>
@@ -46,7 +47,7 @@ var board,
   pgnEl = $('#pgn');
 AIRunner.numberOfMoves = 0; // temp test code
 
-var updateStatus = function() {
+var setStatus = function() {
   var status = '';
 
   var moveColor = 'White';
@@ -75,6 +76,10 @@ var updateStatus = function() {
   }
 
   statusEl.html(status);
+}
+
+var updateStatus = function() {
+  setStatus();
   fenEl.html(game.fen());
   pgnEl.html(game.pgn());
 };
@@ -127,8 +132,16 @@ var reset = function() {
   fenEl.html('');
   pgnEl.html('');
 }
+var undo = function() {
+  game.undo();
+  board.position(game.fen());
+  setStatus();
+  fenEl.html(game.fen());
+  pgnEl.html(game.pgn());
+}
 board = ChessBoard('board', cfg);
 $('#resetBtn').on('click', reset);
+$('#undoBtn').on('click', undo);
 updateStatus();
   </script>
 </body>
