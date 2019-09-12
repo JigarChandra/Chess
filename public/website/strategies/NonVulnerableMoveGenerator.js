@@ -91,6 +91,13 @@ class NonVulnerableMoveGenerator {
 			return PieceInfoGenerator.generateType(move.piece) != gameInfo.PAWN;
 		}
 
+		function isNotKingMove(move) {
+			return PieceInfoGenerator.generateType(move.piece) != gameInfo.KING;
+		}
+		function isKingMove(move) {
+			return PieceInfoGenerator.generateType(move.piece) === gameInfo.KING;
+		}
+
 		var weightMoves = [];
 		var isWhiteTurn = false;
 		if (gameInfo.turn() === 'w') {
@@ -172,14 +179,21 @@ class NonVulnerableMoveGenerator {
 				return (parseInt(move.from.charAt(1)) > parseInt(move.to.charAt(1)));
 			}
 		}
-		function isNotKingPiece(piece) {
-			return PieceInfoGenerator.generateType(piece) !== gameInfo.KING;
+
+		var nonPawnMoves = safeMoves.filter(isNotPawnMove);
+		if (safeMoves.filter(isNotKingMove).length) {
+			//console.log('has non king moves');
+			// avoid king movements if there are other options
+			nonPawnMoves = nonPawnMoves.filter(isNotKingMove);
 		}
-		let nonPawnMoves = safeMoves.filter(isNotPawnMove);
+		else {
+			//console.log('has only king moves');
+		}
+
 		for (var i =0; i < nonPawnMoves.length; i++) {
 			var weight = 0;
 			// discourage king movements
-			if (isNotKingPiece(nonPawnMoves[i].piece) && isDevelopingTowardsOppKing(nonPawnMoves[i])) {
+			if (isNotKingMove(nonPawnMoves[i]) && isDevelopingTowardsOppKing(nonPawnMoves[i])) {
 				weight += 2;
 			}
 			let distance = Math.abs(parseInt(nonPawnMoves[i].from.charAt(1)) - parseInt(nonPawnMoves[i].to.charAt(1)));

@@ -48,6 +48,16 @@ r2k2nr/1bpq2b1/1p1pp2p/pP3ppn/P1PP4/4PP2/3K1NPP/RNB1QB1R w - - 14 29
 45. DefensiveStrategy exposes white rook at h1:
 1rqk2n1/1bp3br/1p1ppnNp/pP6/P1PP2p1/4P3/4B1PP/RNBKQ2R w - - 2 38
 
+46. Black Queen moves to b5 (bad move):
+rnb1kbnr/pppq1ppp/4p3/3p4/3P4/2P1B2N/PP2PPPP/RN1QKB1R b KQkq - 3 4
+previous white turn: rnb1kbnr/pppq1ppp/4p3/3p4/3P4/2P4N/PP2PPPP/RNBQKB1R w KQkq - 2 4
+
+47. White makes a non-intelligble move to h4:
+r1b1kbnr/pppqp3/n2p3p/5p2/6p1/N1N5/PPPPPPPP/R1BQKB1R w KQkq - 4 8
+
+48. Black King makes random move, king should never make a random move if there are pieces that can be moved randomly:
+r1b1k2r/pppqp1b1/n2p1n1p/3P1p2/6pP/N1N5/PPP1PPP1/R1BQKB1R b KQkq - 0 10
+
 ------------------------------------------------------------------
 
 Feature requests:

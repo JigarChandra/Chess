@@ -29,6 +29,7 @@
   <script src="strategies/NextAttackingMoveGenerator.js"></script>
   <script src="strategies/DefensiveMoveGenerator.js"></script>s
   <script src="strategies/NonVulnerableMoveGenerator.js"></script>
+  <script src="strategies/CheckmateDefensiveMoveGenerator.js"></script>
   <script src="StrategyRunner.js"></script>
   <script src="strategies/RandomStrategy.js"></script>
   <script src="strategies/DefenseAgainstCheckSubStrategy.js"></script>
@@ -37,8 +38,10 @@
   <script src="strategies/DefensiveSubStrategy.js"></script>
   <script src="strategies/RandomSubStrategy.js"></script>
   <script src="strategies/NonVulnerableSubStrategy.js"></script>
+  <script src="strategies/CheckmateDefensiveMoveStrategy.js"></script>
   <script src="strategies/DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrategy.js"></script>
   <script src="strategies/DACandDefensiveAndRandomStrategy.js"></script>
+  <script src="strategies/WithCheckMateDefense.js"></script>
   <script>
     var board,
     isPaused = false,
@@ -48,7 +51,7 @@
   pgnEl = $('#pgn');
 
 var player1Strategy = new DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrategy();
-var player2Strategy = new DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrategy();
+var player2Strategy = new WithCheckMateDefense();
 
 var updateStatus = function() {
   var status = '';
@@ -95,7 +98,7 @@ var updateStatus = function() {
           game.moves().length === 0);
   }
   if (! isGameOver()) {
-    window.setTimeout(updateStatus, 2000);
+    window.setTimeout(updateStatus, 1000);
   } else {
     console.log('Game ended');
   }
@@ -121,7 +124,7 @@ StrategyRunner.numberOfMoves = 0;
 $('#playBtn').on('click', play);
 $('#pauseBtn').on('click', pause);
 $('#resetBtn').on('click', reset);
-window.setTimeout(updateStatus, 2000);
+window.setTimeout(updateStatus, 1000);
   </script>
 </body>
 </html>
