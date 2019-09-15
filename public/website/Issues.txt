@@ -54,7 +54,6 @@ previous white turn: rnb1kbnr/pppq1ppp/4p3/3p4/3P4/2P4N/PP2PPPP/RNBQKB1R w KQkq 
 
 47. White makes a non-intelligble move to h4:
 r1b1kbnr/pppqp3/n2p3p/5p2/6p1/N1N5/PPPPPPPP/R1BQKB1R w KQkq - 4 8 
-
 ------------------------------------------------------------------
 
 Feature requests:
@@ -181,3 +180,7 @@ chess-0.10.2.min.js:6 Uncaught TypeError: Cannot read property 'type' of null
     at WithCheckMateDefense.move (WithCheckMateDefense.js:13)
     at Function.run (StrategyRunner.js:51)
     at updateStatus (CPUvsCPU.html:93)
+
+51. NextOffensiveStrategy White exposes soldier at h4 by moving knight from h1 to g3: --> FIXED
+rnb1kbnr/pppp1ppp/4p3/8/5q1P/6N1/PPPPPPP1/R1BQKBNR w KQkq - 5 5
+When multiple moves are detected to capture a piece of the same value, the move with the smallest piece should be selected

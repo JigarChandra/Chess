@@ -45,6 +45,9 @@ class NextAttackingMoveGenerator {
 				let currOpponentBestAttackingMove = AttackingMoveGenerator.getBestAttackingMove(futureGame);
 
 				function getMoveWithBestScore(move) {
+					if (move.from === 'e2' && move.to === 'e3') {
+						console.log('debugging');
+					}
 					let piece1 = move.piece;
 					let piece1Score = PieceInfoGenerator.generateScore(piece1);
 					var currScore = -1;
@@ -97,10 +100,11 @@ class NextAttackingMoveGenerator {
 								currBestCapturedByScore = currCapturedByScore;
 								currBestMove = move.from + "-" + move.to;		
 							}
+						} else {
+							currBestScore = currScore;
+							currBestCapturedByScore = currCapturedByScore;
+							currBestMove = move.from + "-" + move.to;
 						}
-						currBestScore = currScore;
-						currBestCapturedByScore = currCapturedByScore;
-						currBestMove = move.from + "-" + move.to;
 						// console.log('currScore, currBestScore, currCapturedByScore, currBestCapturedByScore: ' 
 						// 	+ currScore + ' , ' + currBestScore + ' , ' + currCapturedByScore + ' , ' + currBestCapturedByScore);
 						// console.log('currBestMove: ' + currBestMove);
