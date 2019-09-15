@@ -120,6 +120,7 @@ class DefensiveMoveGenerator {
 						// console.log('returning 4');
 						return {score: vulnerablePieceScore, move: bestNonVulnerableMove};
 					}
+					// take out atleast some opposing piece before getting captured
 					if (bestAttackingMove.move != null) {
 						if (exposesValuablePiece(bestAttackingMove.move)) {
 							// console.log('Aborting defense move for current piece as it exposes a more valuable piece');
@@ -145,6 +146,25 @@ class DefensiveMoveGenerator {
 					}
 
 					// TODO: find a supporting piece-move in a non vulnerable pos
+					let validMoves = gameInfo.moves({verbose:true});
+					var currBestSupportMovePieceScore = Number.MAX_SAFE_INTEGER, currBestSupportMove;
+					validMoves.forEach(function(move) {
+						let supportTester = new Chess();
+						supportTester.load(gameInfo.fen());
+						supportTester.move(move);
+						let oppAtttackingMoveAfterSupport = AttackingMoveGenerator.getBestAttackingMove(supportTester);
+						if (oppAtttackingMoveAfterSupport.score < currBestScore) {
+							let piece = move.piece,
+								score = PieceInfoGenerator.generateScore(piece);
+								if (score < currBestSupportMovePieceScore) {
+									currBestSupportMovePieceScore = score;
+									currBestSupportMove = move.from + '-' + move.to;
+								}
+						}
+					});
+					if (currBestSupportMove) {
+						return {score: vulnerablePieceScore, move: currBestSupportMove};
+					}
 				}
 				// console.log('returning 7');
 				return {score: -1, move: null};
