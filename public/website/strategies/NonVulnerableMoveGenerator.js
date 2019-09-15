@@ -168,16 +168,20 @@ class NonVulnerableMoveGenerator {
 			throw 'Could not find opposition king position row'
 		}
 		function isDevelopingTowardsOppKing(move) {
+			//console.log('Evaluating move developing towards king: ' + JSON.stringify(move));
 			let oppKingRow = getOppKingRow();
 			var shouldMoveUp = false;
 			if (parseInt(move.from.charAt(1)) < oppKingRow) {
 				shouldMoveUp = true;
 			}
+			var isDeveloping;
 			if (shouldMoveUp) {
-				return (parseInt(move.from.charAt(1)) < parseInt(move.to.charAt(1)));
+				isDeveloping = (parseInt(move.from.charAt(1)) < parseInt(move.to.charAt(1)));
 			} else {
-				return (parseInt(move.from.charAt(1)) > parseInt(move.to.charAt(1)));
+				isDeveloping = (parseInt(move.from.charAt(1)) > parseInt(move.to.charAt(1)));
 			}
+			//console.log('is developing: ' + isDeveloping);
+			return isDeveloping;
 		}
 
 		var nonPawnMoves = safeMoves.filter(isNotPawnMove);
@@ -195,10 +199,10 @@ class NonVulnerableMoveGenerator {
 			// discourage king movements
 			if (isNotKingMove(nonPawnMoves[i]) && isDevelopingTowardsOppKing(nonPawnMoves[i])) {
 				weight += 2;
+				let distance = Math.abs(parseInt(nonPawnMoves[i].from.charAt(1)) - parseInt(nonPawnMoves[i].to.charAt(1)));
+				let distanceBasedWeight = 7 - distance; // encourages smaller steps
+				weight += distanceBasedWeight;
 			}
-			let distance = Math.abs(parseInt(nonPawnMoves[i].from.charAt(1)) - parseInt(nonPawnMoves[i].to.charAt(1)));
-			let distanceBasedWeight = 7 - distance; // encourages smaller steps
-			weight += distanceBasedWeight;
 			for (var j = 0; j < weight; j++) {
 				weightedMoves.push(nonPawnMoves[i]);
 			}

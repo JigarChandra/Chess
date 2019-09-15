@@ -61,6 +61,7 @@ class ShieldMoveGenerator {
 				return inBetweenTiles;
 			}
 			let tilesInBetween = getTilesInBetween();
+			var currBestShieldMove = {score: 1, move: null};
 			for (var i = 0; i < tilesInBetween.length; i++) {
 				let currTile = tilesInBetween[i];
 				function isValidMove(move) {
@@ -73,13 +74,14 @@ class ShieldMoveGenerator {
 						let futGame = new Chess(gameInfo.fen());
 						futGame.move(moveToCurrTile.from + '-' + moveToCurrTile.to, {sloppy: true});
 						let opponentBestAttackingMoveScore = AttackingMoveGenerator.getBestAttackingMove(futGame, moveToCurrTile.to).score;
-						if (opponentBestAttackingMoveScore <= -1) {
-							return moveToCurrTile.from + '-' + moveToCurrTile.to;
+						if (opponentBestAttackingMoveScore < currBestShieldMove.score) {
+							currBestShieldMove.score = opponentBestAttackingMoveScore;
+							currBestShieldMove.move = moveToCurrTile.from + '-' + moveToCurrTile.to;
 						}
 					}
 				}
 			}
-			return null;
+			return currBestShieldMove.score != 1 ? currBestShieldMove.move : null;
 	}
 
 }

@@ -11,6 +11,7 @@ class WithCheckMateDefense {
 		var currBestStrategy = null;
 		for (var i = 0; i < strategies.length; i++) {
 			let currStrategy = strategies[i].move(gameInfo);
+			//console.log(`Strategy: ${currStrategy.strategy} , Move: ${currStrategy.move} , Score: ${currStrategy.score}`);
 			let currScore = currStrategy.score, currMove = currStrategy.move;
 			// to execute immediate attacking / defending moves
 			if (currStrategy.strategy === 'NextOffensive' && currBestScore > 0) {
