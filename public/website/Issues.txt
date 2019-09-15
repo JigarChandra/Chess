@@ -55,6 +55,9 @@ previous white turn: rnb1kbnr/pppq1ppp/4p3/3p4/3P4/2P4N/PP2PPPP/RNBQKB1R w KQkq 
 47. White makes a non-intelligble move to h4:
 r1b1kbnr/pppqp3/n2p3p/5p2/6p1/N1N5/PPPPPPPP/R1BQKB1R w KQkq - 4 8
 
+53. Black tries to attack white queen by moving bishop to f2 and exposing its own queen:
+r3k2r/p7/n1p1Bnpp/Pp1p4/3Pp3/1NP1Pp2/RPNB1P2/3KQ1bq b kq - 7 36
+
 ------------------------------------------------------------------
 
 Feature requests:
@@ -188,3 +191,6 @@ When multiple moves are detected to capture a piece of the same value, the move 
 
 52. NextOffensive White moves queen from b5 to e5 whereas a better defensive move was moving rook from a2 to a1: --> FIXED
 rnb1kbn1/1ppp2pr/4p2p/pQ3p2/2PP3P/P3P3/RPqN1PP1/2B1KBNR w Kq - 5 16
+
+54. NextOffensive White queen moves to b3 exposing bishop: --> FIXED
+r1bqkb1r/1p1pppp1/p4n1p/2p5/P4P2/2P3RN/nP1PP1PP/1NBQKB1R w Kkq - 1 10

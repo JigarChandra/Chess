@@ -45,9 +45,9 @@ class NextAttackingMoveGenerator {
 				let currOpponentBestAttackingMove = AttackingMoveGenerator.getBestAttackingMove(futureGame);
 
 				function getMoveWithBestScore(move) {
-					if (move.from === 'e2' && move.to === 'e3') {
-						console.log('debugging');
-					}
+					//if (move.from === 'd1' && move.to === 'b3') {
+					//	console.log('debugging');
+					//}
 					let piece1 = move.piece;
 					let piece1Score = PieceInfoGenerator.generateScore(piece1);
 					var currScore = -1;
@@ -57,11 +57,13 @@ class NextAttackingMoveGenerator {
 					futureGameWithMove.load(futureGame.fen());
 					let removedPiece = futureGameWithMove.remove(move.from);
 					let putRes = futureGameWithMove.put(removedPiece, move.to);
-					let bestOppMoveAfterFirstMove = AttackingMoveGenerator.getBestAttackingMove(futureGameWithMove, move.to);
+					let bestOppMoveAfterFirstMoveToPos = AttackingMoveGenerator.getBestAttackingMove(futureGameWithMove, move.to),
+					bestOppMoveAfterFirstMoveAllPos = AttackingMoveGenerator.getBestAttackingMove(futureGameWithMove);
 
-					if ((bestOppMoveAfterFirstMove.score <= currOpponentBestAttackingMove.score 
+					if (((bestOppMoveAfterFirstMoveToPos.score <= currOpponentBestAttackingMove.score 
 						 && !ForeSightProvider.canGetCaptured(gameInfo, move.from, move.to)
-						 ) || (bestOppMoveAfterFirstMove.score < 0)) {
+						 ) || (bestOppMoveAfterFirstMoveToPos.score < 0)) 
+						 && bestOppMoveAfterFirstMoveAllPos.score <= currOpponentBestAttackingMove.score) {
 
 						// let futGame = new Chess(gameInfo.fen());
 						// futGame.move(move.from + '-' + move.to, {sloppy: true});
