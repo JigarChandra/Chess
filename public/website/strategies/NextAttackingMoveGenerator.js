@@ -63,7 +63,8 @@ class NextAttackingMoveGenerator {
 					if (((bestOppMoveAfterFirstMoveToPos.score <= currOpponentBestAttackingMove.score 
 						 && !ForeSightProvider.canGetCaptured(gameInfo, move.from, move.to)
 						 ) || (bestOppMoveAfterFirstMoveToPos.score < 0)) 
-						 && bestOppMoveAfterFirstMoveAllPos.score <= currOpponentBestAttackingMove.score) {
+						 && (bestOppMoveAfterFirstMoveAllPos.score <= currOpponentBestAttackingMove.score) ||
+						  (bestOppMoveAfterFirstMoveAllPos.score < 0 && currOpponentBestAttackingMove.score < 0)) {
 
 						// let futGame = new Chess(gameInfo.fen());
 						// futGame.move(move.from + '-' + move.to, {sloppy: true});

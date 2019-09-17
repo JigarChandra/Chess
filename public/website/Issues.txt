@@ -58,6 +58,8 @@ r1b1kbnr/pppqp3/n2p3p/5p2/6p1/N1N5/PPPPPPPP/R1BQKB1R w KQkq - 4 8
 53. Black tries to attack white queen by moving bishop to f2 and exposing its own queen:
 r3k2r/p7/n1p1Bnpp/Pp1p4/3Pp3/1NP1Pp2/RPNB1P2/3KQ1bq b kq - 7 36
 
+55. Defensive strategy picks wrong move with Black queen to h3 whereas better move is bishop to g4:
+r3kb1r/ppp1pp1p/n1n3p1/4pb1q/2P3P1/P1QP1N1P/1P2BP2/RNB1K2R b KQkq - 0 17
 ------------------------------------------------------------------
 
 Feature requests:
@@ -194,3 +196,6 @@ rnb1kbn1/1ppp2pr/4p2p/pQ3p2/2PP3P/P3P3/RPqN1PP1/2B1KBNR w Kq - 5 16
 
 54. NextOffensive White queen moves to b3 exposing bishop: --> FIXED
 r1bqkb1r/1p1pppp1/p4n1p/2p5/P4P2/2P3RN/nP1PP1PP/1NBQKB1R w Kkq - 1 10
+
+56. NextOffensive strategy does not detect white soldier move from d2 - d3: --> FIXED
+r1bqkbnr/pppppppp/8/8/1Pn5/2N4P/P1PPPPP1/R1BQKBNR w KQkq - 1 4
