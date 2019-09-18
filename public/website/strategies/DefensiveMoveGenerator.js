@@ -1,4 +1,10 @@
-class DefensiveMoveGenerator {
+import AttackingMoveGenerator from './AttackingMoveGenerator.js';
+import PieceInfoGenerator from './PieceInfoGenerator.js';
+import ForeSightProvider from './ForeSightProvider.js';
+import ShieldMoveGenerator from './ShieldMoveGenerator.js';
+import NonVulnerableMoveGenerator from './NonVulnerableMoveGenerator.js';
+
+export default class DefensiveMoveGenerator {
 	/*
 	Gets a move that results in the avoidance of capture of the most valuable piece on the next turn either
 	by capturing the attacker with a net-profit or moving the vulnerable piece to a non-vulnerable position

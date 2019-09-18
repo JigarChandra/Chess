@@ -1,7 +1,9 @@
-class PieceInfoGenerator {
+import PieceInfo from './PieceInfo.js';
+
+export default class PieceInfoGenerator {
 	static generateScore(piece1) {
 		function getScore(piece) {
-			for (const p of PieceInfo.getPieces()) {
+			for (const p of PieceInfo().getPieces()) {
 				if (p.val === piece.toLowerCase()) {
 					return p.score;
 				}
@@ -17,7 +19,7 @@ class PieceInfoGenerator {
 
 	static generateType(pieceInitial) {
 		function getType(piece) {
-			for (const p of PieceInfo.getPieces()) {
+			for (const p of PieceInfo().getPieces()) {
 				if (p.val === piece.toLowerCase()) {
 					return p.type;
 				}

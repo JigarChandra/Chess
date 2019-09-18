@@ -1,7 +1,11 @@
 // TODO: find cumulative damage at an attacking position - for e.g trying to attack a bishop which is supported by a Queen, with two pawns
 // should result in a positive score attack 
 // For next best attacking move: Amplify capture by least valuable piece by giving higher weightage, search amongst only non-capture moves
-class NextAttackingMoveGenerator {
+import AttackingMoveGenerator from './AttackingMoveGenerator.js';
+import PieceInfoGenerator from './PieceInfoGenerator.js';
+import ForeSightProvider from './ForeSightProvider.js';
+
+export default class NextAttackingMoveGenerator {
 	/*
 	TODO: Does not handle en-passant
 	Excellent e.g: 'rnbqkbnr/p1p1pppp/1p1p4/8/8/2N3P1/PPPPPP1P/R1BQKBNR w KQkq - 0 3', will result in white bishop from f1 to g2 and

@@ -1,4 +1,6 @@
-class DACandDefensiveAndRandomStrategy {
+import DefenseAgainstCheckSubStrategy from './DefenseAgainstCheckSubStrategy.js';
+
+export default class DACandDefensiveAndRandomStrategy {
 	move(gameInfo) {
 		let strategies = [new DefenseAgainstCheckSubStrategy(), new OffensiveSubStrategy(),
 						  new NonVulnerableSubStrategy(), new DefensiveSubStrategy(), new RandomSubStrategy(new RandomStrategy())];

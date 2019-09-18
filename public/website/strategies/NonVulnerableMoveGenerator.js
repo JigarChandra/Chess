@@ -1,7 +1,11 @@
 /*
 Find possible moves from vulnerablePiecePos and returns a random pos where it cannot be immediately captured
 */
-class NonVulnerableMoveGenerator {
+import AttackingMoveGenerator from './AttackingMoveGenerator.js';
+import PieceInfoGenerator from './PieceInfoGenerator.js';
+import ForeSightProvider from './ForeSightProvider.js';
+
+export default class NonVulnerableMoveGenerator {
 
 	static getBestNonVulnerableMove(gameInfo, fromPos, isDefensive) {
 		let moves = NonVulnerableMoveGenerator.getNonVulnerableMoves(gameInfo, fromPos, isDefensive);

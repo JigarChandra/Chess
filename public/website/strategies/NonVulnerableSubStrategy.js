@@ -1,4 +1,6 @@
-class NonVulnerableSubStrategy {
+import NonVulnerableMoveGenerator from './NonVulnerableMoveGenerator.js';
+
+export default class NonVulnerableSubStrategy {
 	move(gameInfo) {
 		var res = {};
 		res.move = NonVulnerableMoveGenerator.getBestNonVulnerableMove(gameInfo);

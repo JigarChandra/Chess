@@ -1,7 +1,10 @@
 // TODO: find cumulative damage at an attacking position - for e.g trying to attack a bishop which is supported by a Queen, with two pawns
 // should result in a positive score attack 
 // For next best attacking move: Amplify capture by least valuable piece by giving higher weightage, search amongst only non-capture moves
-class AttackingMoveGenerator {
+import PieceInfoGenerator from './PieceInfoGenerator.js';
+import ForeSightProvider from './ForeSightProvider.js';
+
+export default class AttackingMoveGenerator {
 	/*
 	Gets a move that results in a capture on the same turn with least possible damage amongst all other attacking moves
 	If 'atPos' is provided, then attempts to find best attacking move to capture piece at 'atPos'

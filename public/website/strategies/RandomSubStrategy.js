@@ -1,4 +1,4 @@
-class RandomSubStrategy {
+export default class RandomSubStrategy {
 	constructor(randomStrategy) {
 		this.randomStrategy = randomStrategy;
 	}

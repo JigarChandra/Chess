@@ -31,8 +31,16 @@ check if next set of possible moves contain a capture flag for that position
 */
 // ******** Need a Defensive strategy against possible check-mate moves from opponent;
 // import {RandomSubStrategy} from './RandomSubStrategy.js';
+import DefenseAgainstCheckSubStrategy from './DefenseAgainstCheckSubStrategy.js';
+import OffensiveSubStrategy from './OffensiveSubStrategy.js';
+import DefensiveSubStrategy from './DefensiveSubStrategy.js';
+import TwoStepCheckMateSubStrategy from './TwoStepCheckMateSubStrategy.js';
+import NextOffensiveSubStrategy from './NextOffensiveSubStrategy.js';
+import NonVulnerableSubStrategy from './NonVulnerableSubStrategy.js';
+import RandomSubStrategy from './RandomSubStrategy.js';
+import RandomStrategy from './RandomStrategy.js';
 
-class DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrategy {
+export default class DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrategy {
 	move(gameInfo) {
 		let strategies = [new DefenseAgainstCheckSubStrategy(), new OffensiveSubStrategy(),
 						  new DefensiveSubStrategy(),

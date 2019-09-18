@@ -4,8 +4,9 @@ Defend against check in preference:
 	ii. putting up the least valuable piece (compared to the attacking piece) as a shield
 	iii. moving the king
 */
+import AttackingMoveGenerator from './AttackingMoveGenerator.js';
 
-class DefenseAgainstCheckSubStrategy {
+export default class DefenseAgainstCheckSubStrategy {
 	move(gameInfo) {
 		if (gameInfo.in_check()) {
 			var res = AttackingMoveGenerator.getBestAttackingMove(gameInfo);

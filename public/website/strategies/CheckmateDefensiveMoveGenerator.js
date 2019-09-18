@@ -1,4 +1,6 @@
-class CheckmateDefensiveMoveGenerator {
+import TwoStepCheckMateMoveGenerator from './TwoStepCheckMateMoveGenerator.js';
+
+export default class CheckmateDefensiveMoveGenerator {
 	static getBestDefendingMove(gameInfo) {
 			function isAttackingMove(move) {
 				return move.flags.includes("c");

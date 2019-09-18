@@ -1,4 +1,14 @@
-class WithCheckMateDefense {
+import DefenseAgainstCheckSubStrategy from './DefenseAgainstCheckSubStrategy.js';
+import OffensiveSubStrategy from './OffensiveSubStrategy.js';
+import DefensiveSubStrategy from './DefensiveSubStrategy.js';
+import TwoStepCheckMateSubStrategy from './TwoStepCheckMateSubStrategy.js';
+import CheckmateDefensiveMoveStrategy from './CheckmateDefensiveMoveStrategy.js';
+import NextOffensiveSubStrategy from './NextOffensiveSubStrategy.js';
+import NonVulnerableSubStrategy from './NonVulnerableSubStrategy.js';
+import RandomSubStrategy from './RandomSubStrategy.js';
+import RandomStrategy from './RandomStrategy.js';
+
+export default class WithCheckMateDefense {
 	move(gameInfo) {
 		let strategies = [new DefenseAgainstCheckSubStrategy(), new OffensiveSubStrategy(),
 						  new DefensiveSubStrategy(),

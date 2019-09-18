@@ -1,4 +1,6 @@
-class DefensiveSubStrategy {
+import DefensiveMoveGenerator from './DefensiveMoveGenerator.js';
+
+export default class DefensiveSubStrategy {
 	move(gameInfo) {
 		var res = DefensiveMoveGenerator.getBestDefendingMove(gameInfo);
 		res.strategy = 'Defensive'

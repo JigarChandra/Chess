@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0 maximum-scale=1.0">
+  <title>Parallel CPU vs CPU Chessboard Tests</title>
+  <link rel="stylesheet" href="chessboard.css" />
+</head>
+<body>
+  <table id='StatsTable'></table>
+  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="js/chess-0.10.2.min.js"></script>
+  <script src="chessboard.js"></script>
+  <script src="strategies/MovesUtil.js"></script>
+  <script src="strategies/PieceInfo.js"></script>
+  <script src="strategies/ForeSightProvider.js"></script>
+  <script src="strategies/ShieldMoveGenerator.js"></script>
+  <script src="strategies/PieceInfoGenerator.js"></script>
+  <script src="strategies/TwoStepCheckMateMoveGenerator.js"></script>
+  <script src="strategies/TwoStepCheckMateSubStrategy.js"></script>
+  <script src="strategies/AttackingMoveGenerator.js"></script>
+  <script src="strategies/NextAttackingMoveGenerator.js"></script>
+  <script src="strategies/DefensiveMoveGenerator.js"></script>s
+  <script src="strategies/NonVulnerableMoveGenerator.js"></script>
+  <script src="strategies/CheckmateDefensiveMoveGenerator.js"></script>
+  <script src="TestStrategyRunner.js"></script>
+  <script src="strategies/RandomStrategy.js"></script>
+  <script src="strategies/DefenseAgainstCheckSubStrategy.js"></script>
+  <script src="strategies/OffensiveSubStrategy.js"></script>
+  <script src="strategies/NextOffensiveSubStrategy.js"></script>
+  <script src="strategies/DefensiveSubStrategy.js"></script>
+  <script src="strategies/RandomSubStrategy.js"></script>
+  <script src="strategies/NonVulnerableSubStrategy.js"></script>
+  <script src="strategies/CheckmateDefensiveMoveStrategy.js"></script>
+  <script src="strategies/DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrategy.js"></script>
+  <script src="strategies/DACandDefensiveAndRandomStrategy.js"></script>
+  <script src="strategies/WithCheckMateDefense.js"></script>
+  <script>
+
+var statsTable = $('#StatsTable');
+const headerRow = statsTable[0].insertRow(0);
+const hrGameCell = headerRow.insertCell(0);
+hrGameCell.innerHTML = 'Game'
+const hrFenCell = headerRow.insertCell(1);
+hrFenCell.innerHTML = 'FEN'
+const hrPgnCell = headerRow.insertCell(2);
+hrPgnCell.innerHTML = 'PGN'
+const hrStatusCell = headerRow.insertCell(3);
+hrStatusCell.innerHTML = 'Status'
+const games = [];
+const rowCells = [];
+
+for (var i = 1; i <= 10; i++) {
+    var row = statsTable[0].insertRow(i);
+    rowCells[i-1] = [];
+    rowCells[i-1].push(row.insertCell(0));
+    rowCells[i-1].push(row.insertCell(1));
+    rowCells[i-1].push(row.insertCell(2));
+    rowCells[i-1].push(row.insertCell(3));
+
+    games.push(new Chess());
+
+    rowCells[i-1][0].innerHTML = 'Game ' + i
+}
+
+var updateStatus = function(player1Strategy, player2Strategy, gameIdx, game, self) {
+  console.log('gameIdx is: ' + gameIdx);
+  var status = '';
+
+  var updateState = function() {
+    var moveColor = 'White';
+  if (game.turn() === 'b') {
+    moveColor = 'Black';
+  }
+
+  // checkmate?
+  if (game.in_checkmate() === true) {
+    status = 'Game over, ' + moveColor + ' is in checkmate.';
+  }
+
+  // draw?
+  else if (game.in_draw() === true) {
+    status = 'Game over, drawn position';
+  }
+
+  // game still on
+  else {
+    status = moveColor + ' to move';
+
+    // check?
+    if (game.in_check() === true) {
+      status += ', ' + moveColor + ' is in check';
+    }
+  }
+
+  rowCells[i][1].innerHTML = game.fen();
+  rowCells[i][2].innerHTML = game.pgn();
+  rowCells[i][3].innerHTML = status;
+  }
+
+  updateState();
+  //console.log('updateStatus');
+
+};
+
+var isAnyGameInProgress = function() {
+    for (var i = 0; i < 10; i++) {
+        if (!games[i].game_over()) {
+            return true;
+        }
+    }
+    return false;
+}
+//window.setTimeout(updateStatus, 1000);
+    while (isAnyGameInProgress()) {
+        for (var i = 0; i < 10; i++) {
+            var player1Strategy = new DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrategy();
+            var player2Strategy = new WithCheckMateDefense();
+            if (!games[i].game_over()) {
+                TestStrategyRunner.run(player1Strategy, player2Strategy, games[i]);
+            }
+        }
+
+    }
+  </script>
+</body>
+</html>

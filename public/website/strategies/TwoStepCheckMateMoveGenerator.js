@@ -1,4 +1,7 @@
-class TwoStepCheckMateMoveGenerator {
+import NonVulnerableMoveGenerator from './NonVulnerableMoveGenerator.js';
+import MovesUtil from './MovesUtil.js';
+
+export default class TwoStepCheckMateMoveGenerator {
 
 	static getTwoStepCheckMateMove(gameInfo) {
 			function isValidMove(move) {

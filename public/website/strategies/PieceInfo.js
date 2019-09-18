@@ -1,4 +1,4 @@
-var PieceInfo = function() {
+export default function PieceInfo() {
 	let chess = new Chess();
 	let pieces = [{val: "k", score: 20, type: chess.KING},
 					  {val: "q", score: 14, type: chess.QUEEN},
@@ -11,4 +11,4 @@ var PieceInfo = function() {
 		return pieces;
 		}
 	}
-}();
+};

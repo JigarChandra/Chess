@@ -1,4 +1,6 @@
-class ForeSightProvider {
+import PieceInfoGenerator from './PieceInfoGenerator.js';
+
+export default class ForeSightProvider {
 	static canGetCaptured(gameInfo, from, to) {
 		let fen = gameInfo.fen();
 		let futureGame = new Chess(fen);

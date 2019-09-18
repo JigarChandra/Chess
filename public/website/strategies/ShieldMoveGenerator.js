@@ -1,4 +1,6 @@
-class ShieldMoveGenerator {
+import AttackingMoveGenerator from './AttackingMoveGenerator.js';
+
+export default class ShieldMoveGenerator {
 
 	static getBestShieldingMove(gameInfo, attackerPos, vulnerablePos) {
 			function getTilesInBetween() {

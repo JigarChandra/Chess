@@ -18,34 +18,38 @@
   <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
   <script src="js/chess-0.10.2.min.js"></script>
   <script src="chessboard.js"></script>
-  <script src="strategies/MovesUtil.js"></script>
-  <script src="strategies/PieceInfo.js"></script>
-  <script src="strategies/ForeSightProvider.js"></script>
-  <script src="strategies/ShieldMoveGenerator.js"></script>
-  <script src="strategies/PieceInfoGenerator.js"></script>
-  <script src="strategies/TwoStepCheckMateMoveGenerator.js"></script>
-  <script src="strategies/TwoStepCheckMateSubStrategy.js"></script>
-  <script src="strategies/AttackingMoveGenerator.js"></script>
-  <script src="strategies/NextAttackingMoveGenerator.js"></script>
-  <script src="strategies/DefensiveMoveGenerator.js"></script>s
-  <script src="strategies/NonVulnerableMoveGenerator.js"></script>
-  <script src="strategies/CheckmateDefensiveMoveGenerator.js"></script>
-  <script src="StrategyRunner.js"></script>
-  <script src="strategies/RandomStrategy.js"></script>
-  <script src="strategies/DefenseAgainstCheckSubStrategy.js"></script>
-  <script src="strategies/OffensiveSubStrategy.js"></script>
-  <script src="strategies/NextOffensiveSubStrategy.js"></script>
-  <script src="strategies/DefensiveSubStrategy.js"></script>
-  <script src="strategies/RandomSubStrategy.js"></script>
-  <script src="strategies/NonVulnerableSubStrategy.js"></script>
-  <script src="strategies/CheckmateDefensiveMoveStrategy.js"></script>
-  <script src="strategies/DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrategy.js"></script>
-  <script src="strategies/DACandDefensiveAndRandomStrategy.js"></script>
-  <script src="strategies/WithCheckMateDefense.js"></script>
-  <script>
+  <script type = "module" src="strategies/MovesUtil.js"></script>
+  <script type = "module" src="strategies/PieceInfo.js"></script>
+  <script type = "module" src="strategies/ForeSightProvider.js"></script>
+  <script type = "module" src="strategies/ShieldMoveGenerator.js"></script>
+  <script type = "module" src="strategies/PieceInfoGenerator.js"></script>
+  <script type = "module" src="strategies/TwoStepCheckMateMoveGenerator.js"></script>
+  <script type = "module" src="strategies/TwoStepCheckMateSubStrategy.js"></script>
+  <script type = "module" src="strategies/AttackingMoveGenerator.js"></script>
+  <script type = "module" src="strategies/NextAttackingMoveGenerator.js"></script>
+  <script type = "module" src="strategies/DefensiveMoveGenerator.js"></script>s
+  <script type = "module" src="strategies/NonVulnerableMoveGenerator.js"></script>
+  <script type = "module" src="strategies/CheckmateDefensiveMoveGenerator.js"></script>
+  <script type = "module" src="StrategyRunner.js"></script>
+  <script type = "module" src="strategies/RandomStrategy.js"></script>
+  <script type = "module" src="strategies/DefenseAgainstCheckSubStrategy.js"></script>
+  <script type = "module" src="strategies/OffensiveSubStrategy.js"></script>
+  <script type = "module" src="strategies/NextOffensiveSubStrategy.js"></script>
+  <script type = "module" src="strategies/DefensiveSubStrategy.js"></script>
+  <script type = "module" src="strategies/RandomSubStrategy.js"></script>
+  <script type = "module" src="strategies/NonVulnerableSubStrategy.js"></script>
+  <script type = "module" src="strategies/CheckmateDefensiveMoveStrategy.js"></script>
+  <script type = "module" src="strategies/DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrategy.js"></script>
+  <script type = "module" src="strategies/DACandDefensiveAndRandomStrategy.js"></script>
+  <script type = "module" src="strategies/WithCheckMateDefense.js"></script>
+  <script type = "module">
+    import DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrategy from './strategies/DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrategy.js';
+    import WithCheckMateDefense from './strategies/WithCheckMateDefense.js';
+    import StrategyRunner from './StrategyRunner.js';
+
     var board,
     isPaused = false,
-  game = new Chess();
+  game = new Chess(),
   statusEl = $('#status'),
   fenEl = $('#fen'),
   pgnEl = $('#pgn');
