@@ -56,7 +56,7 @@ export default class DefensiveMoveGenerator {
 					let piece1 = move.piece, piece2 = move.captured;
 					let piece1Score = PieceInfoGenerator.generateScore(piece1), piece2Score = PieceInfoGenerator.generateScore(piece2);
 					var damage = 0;
-					if (piece1Score > piece2Score && ForeSightProvider.canGetCaptured(futureGame, move.from, move.to)) {
+					if (ForeSightProvider.canGetCaptured(futureGame, move.from, move.to)) {
 						damage = piece1Score;
 					}
 					let currScore = (piece2Score - damage);

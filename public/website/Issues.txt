@@ -199,3 +199,6 @@ r1bqkb1r/1p1pppp1/p4n1p/2p5/P4P2/2P3RN/nP1PP1PP/1NBQKB1R w Kkq - 1 10
 
 56. NextOffensive strategy does not detect white soldier move from d2 - d3: --> FIXED
 r1bqkbnr/pppppppp/8/8/1Pn5/2N4P/P1PPPPP1/R1BQKBNR w KQkq - 1 4
+
+57. Does not protect knight at c4: --> FIXED
+PGN: 1. b3 Na6 2. Nh3 Nb4 3. c3 Nc6 4. Bb2 b5 5. Na3 b4 6. Nc4 bxc3 7. Bxc3 d5
