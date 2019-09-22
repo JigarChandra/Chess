@@ -57,6 +57,16 @@
 var player1Strategy = new DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrategy();
 var player2Strategy = new WithCheckMateDefense();
 
+var playerStats = {
+  player1: {
+    strategies: {}
+  },
+  player2: {
+    strategies: {}
+  }
+};
+
+
 var updateStatus = function() {
   var status = '';
 
@@ -94,7 +104,7 @@ var updateStatus = function() {
   updateState();
   console.log('updateStatus');
   if(!isPaused) {
-    StrategyRunner.run(player1Strategy, player2Strategy, game, board, updateState);
+    StrategyRunner.run(player1Strategy, player2Strategy, game, board, updateState, playerStats);
   }
   var isGameOver =  function () {
     return (game.game_over() === true ||
@@ -105,6 +115,8 @@ var updateStatus = function() {
     window.setTimeout(updateStatus, 1000);
   } else {
     console.log('Game ended');
+    console.log('Player Stats:');
+    console.log(JSON.stringify(playerStats, null, 2));
   }
 };
 var play = function() {

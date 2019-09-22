@@ -39,6 +39,7 @@ import NextOffensiveSubStrategy from './NextOffensiveSubStrategy.js';
 import NonVulnerableSubStrategy from './NonVulnerableSubStrategy.js';
 import RandomSubStrategy from './RandomSubStrategy.js';
 import RandomStrategy from './RandomStrategy.js';
+import MovesUtil from './MovesUtil.js';
 
 export default class DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrategy {
 	move(gameInfo) {
@@ -54,6 +55,18 @@ export default class DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrateg
 			let currStrategy = strategies[i].move(gameInfo);
 			let currScore = currStrategy.score, currMove = currStrategy.move;
 			console.log(`Strategy: ${currStrategy.strategy} , Move: ${JSON.stringify(currStrategy.move)} , Score: ${currStrategy.score}`);
+			if (currStrategy.move) {
+				if (Object.hasOwnProperty(currStrategy.move, 'from') && MovesUtil.isInThreeFold(new Chess(gameInfo.fen()), currStrategy.move.from, currStrategy.move.to)) {
+					console.log('Abandoning move since will lead to three fold');
+					continue;
+				} else {
+					const mv = currStrategy.move.split('-');
+					if (MovesUtil.isInThreeFold(new Chess(gameInfo.fen()), mv[0], mv[1])) {
+						console.log('Abandoning move since will lead to three fold');
+						continue;
+					}
+				}
+			}
 			// to execute immediate attacking / defending moves
 			if (currStrategy.strategy === 'NextOffensive' && currBestScore > 0) {
 				continue;
@@ -71,6 +84,6 @@ export default class DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrateg
 			console.log('Player 2 strategy: ' + currBestStrategy);
 		}
 		
-		return currBestMove;
+		return {move: currBestMove, strategy: currBestStrategy};
 	}
 }

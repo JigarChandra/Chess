@@ -32,7 +32,7 @@ check if next set of possible moves contain a capture flag for that position
 
 export default class StrategyRunner {
 	
-	static run (Player1Strategy, Player2Strategy, gameEngine, board, updateState) {
+	static run (Player1Strategy, Player2Strategy, gameEngine, board, updateState, playerStats) {
 		var selectedMove = null;
 		var isGameOver =  function () {
 			return (gameEngine.game_over() === true ||
@@ -59,8 +59,18 @@ export default class StrategyRunner {
 		// if (StrategyRunner.numberOfMoves > 10 && StrategyRunner.numberOfMoves < 15) {
 		// 	console.log(gameEngine.moves({verbose:true})); // temp test code
 		// }
-		let res = gameEngine.move(selectedMove, {sloppy: true});
-  		board.position(gameEngine.fen());
+		var playerTurn;
+		if (gameEngine.turn() === 'w') {
+			playerTurn = 'player1'
+		} else {
+			playerTurn = 'player2'
+		}
+		playerStats[playerTurn].strategies[selectedMove.strategy] = playerStats[playerTurn].strategies[selectedMove.strategy] ?
+			playerStats[playerTurn].strategies[selectedMove.strategy] + 1: 1
+
+		let res = gameEngine.move(selectedMove.move, {sloppy: true});
+		  board.position(gameEngine.fen());
+
   		updateState();
   		StrategyRunner.numberOfMoves+=1; // temp test code
   		// window.setTimeout(StrategyRunner.run, 2000, Player1Strategy, Player2Strategy, gameEngine, board);

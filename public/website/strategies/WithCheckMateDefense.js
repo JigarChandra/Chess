@@ -40,6 +40,6 @@ export default class WithCheckMateDefense {
 			console.log('Player 2 strategy: ' + currBestStrategy);
 		}
 		
-		return currBestMove;
+		return {move: currBestMove, strategy: currBestStrategy};
 	}
 }

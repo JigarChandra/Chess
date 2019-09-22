@@ -30,7 +30,7 @@ execute the attacking move on this new board
 check if next set of possible moves contain a capture flag for that position
 */
 
-class AIRunner {
+export default class AIRunner {
 	
 	static run (Player2Strategy, gameEngine, board, updateState) {
 		var selectedMove = null;
