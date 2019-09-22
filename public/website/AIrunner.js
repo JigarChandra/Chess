@@ -49,7 +49,7 @@ export default class AIRunner {
 		// if (StrategyRunner.numberOfMoves > 10 && StrategyRunner.numberOfMoves < 15) {
 		// 	console.log(gameEngine.moves({verbose:true})); // temp test code
 		// }
-		let res = gameEngine.move(selectedMove, {sloppy: true});
+		let res = gameEngine.move(selectedMove.move, {sloppy: true});
   		board.position(gameEngine.fen());
   		updateState();
   		AIRunner.numberOfMoves+=1; // temp test code
