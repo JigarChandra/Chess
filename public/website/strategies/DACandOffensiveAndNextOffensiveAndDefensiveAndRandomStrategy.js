@@ -56,9 +56,11 @@ export default class DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrateg
 			let currScore = currStrategy.score, currMove = currStrategy.move;
 			console.log(`Strategy: ${currStrategy.strategy} , Move: ${JSON.stringify(currStrategy.move)} , Score: ${currStrategy.score}`);
 			if (currStrategy.move) {
-				if (Object.hasOwnProperty(currStrategy.move, 'from') && MovesUtil.isInThreeFold(new Chess(gameInfo.fen()), currStrategy.move.from, currStrategy.move.to)) {
-					console.log('Abandoning move since will lead to three fold');
-					continue;
+				if (currStrategy.move.hasOwnProperty('from')) {
+					if (MovesUtil.isInThreeFold(new Chess(gameInfo.fen()), currStrategy.move.from, currStrategy.move.to)) {
+						console.log('Abandoning move since will lead to three fold');
+						continue;
+					}
 				} else {
 					const mv = currStrategy.move.split('-');
 					if (MovesUtil.isInThreeFold(new Chess(gameInfo.fen()), mv[0], mv[1])) {
