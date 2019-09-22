@@ -53,7 +53,7 @@ export default class DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrateg
 		for (var i = 0; i < strategies.length; i++) {
 			let currStrategy = strategies[i].move(gameInfo);
 			let currScore = currStrategy.score, currMove = currStrategy.move;
-			//console.log(`Strategy: ${currStrategy.strategy} , Move: ${currStrategy.move} , Score: ${currStrategy.score}`);
+			console.log(`Strategy: ${currStrategy.strategy} , Move: ${JSON.stringify(currStrategy.move)} , Score: ${currStrategy.score}`);
 			// to execute immediate attacking / defending moves
 			if (currStrategy.strategy === 'NextOffensive' && currBestScore > 0) {
 				continue;

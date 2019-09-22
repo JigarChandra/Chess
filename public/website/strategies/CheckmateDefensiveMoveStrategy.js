@@ -3,7 +3,7 @@ import CheckmateDefensiveMoveGenerator from './CheckmateDefensiveMoveGenerator.j
 export default class CheckmateDefensiveMoveStrategy {
 	move(gameInfo) {
 		var res = CheckmateDefensiveMoveGenerator.getBestDefendingMove(gameInfo);
-		res.strategy = 'TwoStepCheckMate'
+		res.strategy = 'CheckMateDefense'
 		return res;
 		// TODO: implement ii & iii
 	}

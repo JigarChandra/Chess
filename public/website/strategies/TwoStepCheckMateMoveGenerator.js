@@ -3,14 +3,14 @@ import MovesUtil from './MovesUtil.js';
 
 export default class TwoStepCheckMateMoveGenerator {
 
-	static getTwoStepCheckMateMove(gameInfo) {
+	static getTwoStepCheckMateMove(gameInfo, verboseMode = false) {
 			function isValidMove(move) {
 				return (! move.flags.includes('e'));
 			}
 
 			let oneStepCheckMateMove = TwoStepCheckMateMoveGenerator.getCheckMateMoveInOneTurn(gameInfo, );
 			if(oneStepCheckMateMove != null && !MovesUtil.isInThreeFold(gameInfo, oneStepCheckMateMove.from, oneStepCheckMateMove.to)) {
-				return {score: (13), move: oneStepCheckMateMove};
+				return {score: (13), move: oneStepCheckMateMove, steps: 1};
 			}
 
 			var nonAttackingMoves = NonVulnerableMoveGenerator.getNonVulnerableMoves(gameInfo).saferMoves;
@@ -33,7 +33,14 @@ export default class TwoStepCheckMateMoveGenerator {
 						checkMateMove = move;
 					}
 					if (checkMateMove != null && !MovesUtil.isInThreeFold(gameInfo, checkMateMove.from, checkMateMove.to)) {
-					return {score: (13), move: (checkMateMove.from + '-' + checkMateMove.to)};	
+						var resMove;
+						if (verboseMode) {
+							resMove = checkMateMove;
+						}
+						else {
+							resMove = (checkMateMove.from + '-' + checkMateMove.to);
+						}
+					return {score: (13), move: resMove, steps: 2};	
 					}
 				}
 				return {score: -1, move: null};
@@ -43,7 +50,7 @@ export default class TwoStepCheckMateMoveGenerator {
 	}
 
 	static getCheckMateMoveInOneTurn(gameInfo) {
-		let allMoves = gameInfo.moves();
+		let allMoves = gameInfo.moves({ verbose: true });
 		for (var i = 0; i < allMoves.length; i++) {
 			gameInfo.move(allMoves[i])
 			if (gameInfo.in_checkmate()) {
@@ -64,7 +71,7 @@ export default class TwoStepCheckMateMoveGenerator {
 		} catch (err) {
 			return null;
 		}
-		let allMoves = gameInfo.moves();
+		let allMoves = gameInfo.moves({ verbose: true });
 		for (var i = 0; i < allMoves.length; i++) {
 			let currMove = allMoves[i];
 			let fen = gameInfo.fen();

@@ -45,12 +45,12 @@ export default class StrategyRunner {
 				console.log('Player 1, turn:' + StrategyRunner.numberOfMoves);
 				selectedMove = Player1Strategy.move(gameEngine);
 				console.log('FEN: ' + gameEngine.fen());
-				console.log('Player 1 move: ' + selectedMove);
+				console.log('Player 1 move: ' + JSON.stringify(selectedMove));
 			} else {
 				console.log('Player 2, turn:' + StrategyRunner.numberOfMoves);
 				selectedMove = Player2Strategy.move(gameEngine);
 				console.log('FEN: ' + gameEngine.fen());
-				console.log('Player 2 move: ' + selectedMove);
+				console.log('Player 2 move: ' + JSON.stringify(selectedMove));
 			}
 		} else {
 			console.log('Game ended');
