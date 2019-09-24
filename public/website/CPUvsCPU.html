@@ -43,7 +43,6 @@
   <script type = "module" src="strategies/DACandDefensiveAndRandomStrategy.js"></script>
   <script type = "module" src="strategies/WithCheckMateDefense.js"></script>
   <script type = "module">
-    import DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrategy from './strategies/DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrategy.js';
     import WithCheckMateDefense from './strategies/WithCheckMateDefense.js';
     import StrategyRunner from './StrategyRunner.js';
 
@@ -54,7 +53,7 @@
   fenEl = $('#fen'),
   pgnEl = $('#pgn');
 
-var player1Strategy = new DACandOffensiveAndNextOffensiveAndDefensiveAndRandomStrategy();
+var player1Strategy = new WithCheckMateDefense();
 var player2Strategy = new WithCheckMateDefense();
 
 var playerStats = {

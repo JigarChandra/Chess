@@ -1,4 +1,5 @@
 import DefenseAgainstCheckSubStrategy from './DefenseAgainstCheckSubStrategy.js';
+import DoubleOffensiveSubStrategy from './DoubleOffensiveSubStrategy.js';
 import OffensiveSubStrategy from './OffensiveSubStrategy.js';
 import DefensiveSubStrategy from './DefensiveSubStrategy.js';
 import TwoStepCheckMateSubStrategy from './TwoStepCheckMateSubStrategy.js';
@@ -10,7 +11,9 @@ import RandomStrategy from './RandomStrategy.js';
 
 export default class WithCheckMateDefense {
 	move(gameInfo) {
-		let strategies = [new DefenseAgainstCheckSubStrategy(), new OffensiveSubStrategy(),
+		let strategies = [new DefenseAgainstCheckSubStrategy(), 
+						  new DoubleOffensiveSubStrategy(),
+						  new OffensiveSubStrategy(),
 						  new DefensiveSubStrategy(),
 						  new TwoStepCheckMateSubStrategy(),
 						  new CheckmateDefensiveMoveStrategy(),
