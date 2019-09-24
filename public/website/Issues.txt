@@ -64,6 +64,16 @@ r3kb1r/ppp1pp1p/n1n3p1/4pb1q/2P3P1/P1QP1N1P/1P2BP2/RNB1K2R b KQkq - 0 17
 59 Game ends in a draw:
 FEN: r2q3r/p1pbkp2/3ppNpb/B1n2n1p/1QP1NP2/1P1P2PP/RP2P2R/4KB2 b - - 12 28
 PGN: 1. Nc3 g6 2. Nf3 h6 3. h3 Nf6 4. d3 e6 5. Ne5 d6 6. Ng4 Nd5 7. Na4 b5 8. Nc3 b4 9. Ne4 h5 10. Ngf6+ Ke7 11. c4 Nb6 12. Bd2 b3 13. axb3 N8d7 14. Bb4 Ne5 15. f4 Nc6 16. Ba5 Nd7 17. Ra4 Nc5 18. Ra1 Nb7 19. Qc2 Nd4 20. Qc3 Nf5 21. Ra2 Bh6 22. g3 Bd7 23. Qb4 Nc5 24. Rh2 Na6 25. Qb7 Nc5 26. Qb4 Na6 27. Qb7 Nc5 28. Qb4
+
+60. White knight should not get killed by moving to b6 but should put up support by moving soldier to b3:
+r1b1kbnr/p1p2ppp/np6/4p3/Nq1p4/8/PPPPPPPP/R1BQKBNR w KQkq - 2 11
+
+61. Offensive move white queen to b6 exposes bishop at d2:
+4k1nr/3rb3/npQ1Np2/5Ppp/1P6/q4P2/3BPKPP/5B1R w k - 1 34
+
+62. Variation of NextOffensiveStrategy that targets two opponent pieces at one time, giving more weightage esp if king is involved:
+7r/Q1N1bk2/P4p2/5npp/8/q4P2/3rPKPP/5B1R b - - 1 40
+In above case black bishop from e7 to c5 targets king and queen
 ------------------------------------------------------------------
 
 Feature requests:
