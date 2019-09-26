@@ -73,6 +73,10 @@ r1b1kbnr/p1p2ppp/np6/4p3/Nq1p4/8/PPPPPPPP/R1BQKBNR w KQkq - 2 11
 
 63. White queen should move to d3 to support rook at a1:
 rn2kbnr/pp2pp1p/2p3p1/3pP3/3P4/2P3Q1/qP3PPP/1RB1KBNR w Kkq - 0 10
+
+64. White queen does not capture black queen:
+3k1b2/4p1p1/1Np1r3/3r1p2/q2Q1P2/3P3P/PP1BB3/R3K3 w Q - 3 36
+If piece is being attacked by multiple pieces, best move would be to move the vulnerable piece
 ------------------------------------------------------------------
 
 Feature requests:

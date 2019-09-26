@@ -63,8 +63,7 @@ export default class NonVulnerableMoveGenerator {
 
 					let futureOpponentBestAttackingMove = AttackingMoveGenerator.getBestAttackingMove(futureGame);
 					// need to ensure a perfectly safe non-vulnerable move if a piece needs to be defended
-					if ((futureOpponentBestAttackingMove.score < currOpponentBestAttackingMove.score && !isDefensive) 
-						|| futureOpponentBestAttackingMove.score <= 0
+					if ((futureOpponentBestAttackingMove.score < currOpponentBestAttackingMove.score && !isDefensive)
 						|| (!(ForeSightProvider.canGetCaptured(gameInfo, nonCapturingMoves[i].from, nonCapturingMoves[i].to)) && isDefensive)) {
 						// console.log('futureMove: ' + futureMove);
 						// console.log('was successful: ' + futMoveRes);
@@ -72,7 +71,7 @@ export default class NonVulnerableMoveGenerator {
 						saferMoves.push({from: nonCapturingMoves[i].from, to:nonCapturingMoves[i].to, piece: nonCapturingMoves[i].piece});
 					}
 
-					if (futureOpponentBestAttackingMove.score <= -1) {
+					if (futureOpponentBestAttackingMove.score <= 0) {
 						safeMoves.push({from: nonCapturingMoves[i].from, to:nonCapturingMoves[i].to, piece: nonCapturingMoves[i].piece});
 					}
 				}
