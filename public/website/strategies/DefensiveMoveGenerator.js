@@ -139,19 +139,6 @@ export default class DefensiveMoveGenerator {
 						return {score: vulnerablePieceScore, move: bestAttackingMove.move};	
 					}
 
-					// find worst opponent attacking move
-					let worstPos = DefensiveMoveGenerator.getWorstOpponentAttackingPos(gameInfo, vulnerablePiecePos);
-					if (worstPos != null) {
-						if (exposesValuablePiece(vulnerablePiecePos + '-' + worstPos)) {
-							// console.log('Aborting move as it exposes another valuable piece');
-							return {score: -1, move: null};
-						}
-						// console.log('returning 6');
-						return {score: vulnerablePieceScore, 
-						move: vulnerablePiecePos + '-' + DefensiveMoveGenerator.getWorstOpponentAttackingPos(gameInfo, vulnerablePiecePos)};
-					}
-
-					// TODO: find a supporting piece-move in a non vulnerable pos
 					let validMoves = gameInfo.moves({verbose:true});
 					var currBestSupportMovePieceScore = Number.MAX_SAFE_INTEGER, currBestSupportMove;
 					validMoves.forEach(function(move) {
@@ -170,6 +157,18 @@ export default class DefensiveMoveGenerator {
 					});
 					if (currBestSupportMove) {
 						return {score: vulnerablePieceScore, move: currBestSupportMove};
+					}
+
+					// find worst opponent attacking move
+					let worstPos = DefensiveMoveGenerator.getWorstOpponentAttackingPos(gameInfo, vulnerablePiecePos);
+					if (worstPos != null) {
+						if (exposesValuablePiece(vulnerablePiecePos + '-' + worstPos)) {
+							// console.log('Aborting move as it exposes another valuable piece');
+							return {score: -1, move: null};
+						}
+						// console.log('returning 6');
+						return {score: vulnerablePieceScore, 
+						move: vulnerablePiecePos + '-' + DefensiveMoveGenerator.getWorstOpponentAttackingPos(gameInfo, vulnerablePiecePos)};
 					}
 				}
 				// console.log('returning 7');

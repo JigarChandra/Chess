@@ -77,6 +77,9 @@ rn2kbnr/pp2pp1p/2p3p1/3pP3/3P4/2P3Q1/qP3PPP/1RB1KBNR w Kkq - 0 10
 64. White queen does not capture black queen:
 3k1b2/4p1p1/1Np1r3/3r1p2/q2Q1P2/3P3P/PP1BB3/R3K3 w Q - 3 36
 If piece is being attacked by multiple pieces, best move would be to move the vulnerable piece
+
+65. NonVulnerableMoveGenerator should not consider move from g7 to e5 as safer:
+r1bqk2r/ppppppbp/2n3p1/6Pn/8/1PP2P2/PB1PP2P/RN1QKBNR b KQkq - 2 6
 ------------------------------------------------------------------
 
 Feature requests:

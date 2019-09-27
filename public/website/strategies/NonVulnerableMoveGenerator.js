@@ -62,14 +62,47 @@ export default class NonVulnerableMoveGenerator {
 					let futMoveRes = futureGame.move(nonCapturingMoves[i].from + '-' + nonCapturingMoves[i].to, {sloppy: true});
 
 					let futureOpponentBestAttackingMove = AttackingMoveGenerator.getBestAttackingMove(futureGame);
+					if (nonCapturingMoves[i].from === 'g7' && nonCapturingMoves[i].to === 'e5') {
+						console.log('debugging');
+					}
 					// need to ensure a perfectly safe non-vulnerable move if a piece needs to be defended
 					if ((futureOpponentBestAttackingMove.score < currOpponentBestAttackingMove.score && !isDefensive) 
 						|| futureOpponentBestAttackingMove.score <= 0
 						|| (!(ForeSightProvider.canGetCaptured(gameInfo, nonCapturingMoves[i].from, nonCapturingMoves[i].to)) && isDefensive)) {
+						let futureOpponentNextBestAttackingMove = AttackingMoveGenerator.getNextBestAttackingMove(futureGame),
+						futureOpponentNextBestAttackingMovePos = futureOpponentNextBestAttackingMove.move ? futureOpponentNextBestAttackingMove.move.split('-')[1] : null;
+
+						if (futureOpponentNextBestAttackingMovePos) {
+							const futureGame1 = new Chess(futureGame.fen());
+							futureGame1.move(futureOpponentNextBestAttackingMove.move, {sloppy: true})
+							let currFen = futureGame1.fen();
+							var flippedFen = null;
+							var tempFen = null;
+							if (futureGame1.turn() === 'w') {
+								// change turn to b
+								tempFen = currFen.replace('w', 'b');
+							} else {
+							// change turn to w
+							tempFen = currFen.replace(' b ', ' w '); // spaces since white bishop is also represented by b
+							}
+							let tempFenArr = tempFen.split(' ');
+							tempFenArr[3] = '-';
+							flippedFen = tempFenArr.join(' ');
+							var futureGame2 = new Chess();
+							let loadRes = futureGame2.load(flippedFen);
+							let futureOpponentBestAttackingMove1 = AttackingMoveGenerator.getBestAttackingMove(futureGame2, null, futureOpponentNextBestAttackingMovePos),
+							futureOpponentNextBestAttackingMovePos1 = futureOpponentBestAttackingMove1.move ? futureOpponentBestAttackingMove1.move.split('-')[1] : null;
+
+							const isTargetOnNextAttackingMove = (futureOpponentNextBestAttackingMovePos1 === nonCapturingMoves[i].to);
+							if (!isTargetOnNextAttackingMove) {
+								saferMoves.push({from: nonCapturingMoves[i].from, to:nonCapturingMoves[i].to, piece: nonCapturingMoves[i].piece});
+							}
+						} else {
+							saferMoves.push({from: nonCapturingMoves[i].from, to:nonCapturingMoves[i].to, piece: nonCapturingMoves[i].piece});
+						}
 						// console.log('futureMove: ' + futureMove);
 						// console.log('was successful: ' + futMoveRes);
 						// console.log('futureOpponentBestAttackingMove: ' + JSON.stringify(futureOpponentBestAttackingMove));
-						saferMoves.push({from: nonCapturingMoves[i].from, to:nonCapturingMoves[i].to, piece: nonCapturingMoves[i].piece});
 					}
 
 					if (futureOpponentBestAttackingMove.score <= -1) {
